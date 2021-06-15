@@ -1,23 +1,30 @@
-package com.nikoarap.slotmachine
+package com.nikoarap.slotmachine.ui.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.FloatRange
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import com.nikoarap.slotmachine.R
 import com.nikoarap.slotmachine.slotImageScroll.EventEnd
 import com.nikoarap.slotmachine.slotImageScroll.Utils
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_jackpot.*
 import kotlinx.android.synthetic.main.main_activity_layout.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.Instant
 import java.util.*
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(), EventEnd {
+@AndroidEntryPoint
+class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
 
     private var countDown = 0
 
@@ -40,17 +47,19 @@ class MainActivity : AppCompatActivity(), EventEnd {
     private var lastHourTimeStamp = Instant.now()
     private var lastQuarterHourTimeStamp = Instant.now()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity_layout)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         isBiggestPrizeNotWon.postValue(true);
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        image1.setEventEnd(this@MainActivity)
-        image2.setEventEnd(this@MainActivity)
-        image3.setEventEnd(this@MainActivity)
+        image1.setEventEnd(this)
+        image2.setEventEnd(this)
+        image3.setEventEnd(this)
 
         subscribeToObserves()
 
@@ -65,18 +74,18 @@ class MainActivity : AppCompatActivity(), EventEnd {
                 Utils.score -= 50
                 score_tv.text = Utils.score.toString()
             } else {
-                Toast.makeText(this, "You dont have enough money", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You dont have enough money", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
     fun launchTheSlotMachine() {
         if (isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f) {
             if (secondPrizeQuantity != 0f) {
                 if (thirdPrizeQuantity != 0f) {
                     image1.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
                     image2.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
-                    image3.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
+                    image3.setRandomValue(
+                        Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
                     )
                 } else {
                     image1.setRandomValue(
@@ -126,11 +135,11 @@ class MainActivity : AppCompatActivity(), EventEnd {
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue(
-                     randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(5),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image3.setRandomValue(
-                  randomizeWithEliminatingTwoNumber(3, 5),
+                    randomizeWithEliminatingTwoNumber(3, 5),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
             } else {
@@ -147,11 +156,11 @@ class MainActivity : AppCompatActivity(), EventEnd {
         } else if (secondPrizeQuantity != 0f) {
             if (thirdPrizeQuantity != 0f) {
                 image1.setRandomValue(
-                  randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(5),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue(
-                   randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(5),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image3.setRandomValue(
@@ -175,13 +184,13 @@ class MainActivity : AppCompatActivity(), EventEnd {
 
     }
 
-    fun subscribeToObserves() {
-        isBiggestPrizeNotWon.observe(this, androidx.lifecycle.Observer {
+    private fun subscribeToObserves() {
+        isBiggestPrizeNotWon.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             BiggestPrizeCombination(it)
         })
     }
 
-    fun randomizeWithEliminatingNumber(num: Int): Int {
+    private fun randomizeWithEliminatingNumber(num: Int): Int {
         var number = Random.nextInt(num)
         return if (number != num) {
             return number
@@ -190,7 +199,7 @@ class MainActivity : AppCompatActivity(), EventEnd {
         }
     }
 
-    fun randomizeWithEliminatingTwoNumber(num: Int, num2: Int): Int {
+    private fun randomizeWithEliminatingTwoNumber(num: Int, num2: Int): Int {
         var number = Random.nextInt(num)
         return if (number != num && number != num2) {
             return number
@@ -238,6 +247,8 @@ class MainActivity : AppCompatActivity(), EventEnd {
         }
     }
 
+
+
     override fun eventEnd(result: Int, count: Int) {
         if (countDown < 2) {
             countDown++
@@ -247,7 +258,7 @@ class MainActivity : AppCompatActivity(), EventEnd {
             countDown = 0
 
             if (image1.value == image2.value && image2.value == image3.value) {
-                Toast.makeText(this, "YOU WON!!!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "YOU WON!!!!", Toast.LENGTH_SHORT).show()
                 if (image1.value == 5) {
                     isBiggestPrizeNotWon.postValue(false)
                     println("Biggest Prize not activated")
@@ -262,14 +273,15 @@ class MainActivity : AppCompatActivity(), EventEnd {
                 Utils.score += 300
                 score_tv.text = Utils.score.toString()
             } else if (image1.value == image2.value || image2.value == image3.value || image1.value == image3.value) {
-                Toast.makeText(this, "You did good.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You did good.", Toast.LENGTH_SHORT).show()
                 Utils.score += 100
                 score_tv.text = Utils.score.toString()
             } else {
-                Toast.makeText(this, "You lost. Better luck next time.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You lost. Better luck next time.", Toast.LENGTH_SHORT).show()
                 Utils.score += 0
                 score_tv.text = Utils.score.toString()
             }
         }
     }
+
 }

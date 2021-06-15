@@ -6,6 +6,7 @@
 
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@drawable/applogo"
@@ -15,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.nikoarap.slotmachine.MainActivity"
+            android:name="com.nikoarap.slotmachine.ui.MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

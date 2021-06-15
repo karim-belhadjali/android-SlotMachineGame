@@ -4,131 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Black"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <TextView
-        android:id="@+id/score_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_text_color"
-        android:padding="20sp"
-        android:text="@string/score_text"
-        android:textColor="@color/White"
-        app:layout_constraintBottom_toTopOf="@+id/layout_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/layout_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/score_tv"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20sp"
-        android:background="@drawable/background1"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/imagesLayout"
-            android:layout_width="712dp"
-            android:layout_height="224dp"
-            android:layout_gravity="center_horizontal|center_vertical">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/leverUp"
-                android:layout_width="100dp"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/image"
-                android:visibility="visible"
+                android:gravity="center_vertical"
+                android:text="JackpotApp"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/image1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.588" />
-
-            <com.nikoarap.slotmachine.slotImageScroll.SlotScroll
-                android:id="@+id/image1"
-                android:layout_width="113dp"
-                android:layout_height="141dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.223"
-                app:layout_constraintStart_toEndOf="@+id/image2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <com.nikoarap.slotmachine.slotImageScroll.SlotScroll
-                android:id="@+id/image2"
-                android:layout_width="113dp"
-                android:layout_height="141dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.nikoarap.slotmachine.slotImageScroll.SlotScroll
-                android:id="@+id/image3"
-                android:layout_width="113dp"
-                android:layout_height="141dp"
-                android:layout_gravity="center_vertical"
-                android:padding="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/image2"
-                app:layout_constraintHorizontal_bias="0.721"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-            </com.nikoarap.slotmachine.slotImageScroll.SlotScroll>
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph" />
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal"-->
-        <!--            android:layout_gravity="center_vertical|center_horizontal">-->
-
-
-        <!--            <com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll-->
-        <!--                android:id="@+id/imageSlot"-->
-        <!--                android:layout_gravity="center_vertical"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content">-->
-
-        <!--            </com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll>-->
-        <!--            <com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll-->
-        <!--                android:id="@+id/imageSlot"-->
-        <!--                android:layout_gravity="center_vertical"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content">-->
-
-        <!--            </com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll>-->
-        <!--            <com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll-->
-        <!--                android:id="@+id/imageSlot"-->
-        <!--                android:layout_gravity="center_vertical"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content">-->
-
-        <!--            </com.nikoarap.kotlintestapp.slotImageScroll.SlotScroll>-->
-
-
-        <!--        </LinearLayout>-->
 
     </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
