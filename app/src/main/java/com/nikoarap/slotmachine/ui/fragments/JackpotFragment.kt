@@ -29,8 +29,8 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
     private val halfWorkHours = 4f
     private val timeForOneMassage = 15f
     private var winnersInHalfDay = halfWorkHours * 60f / timeForOneMassage
-    private var secondPrizeQuantity = 3f
-    private var thirdPrizeQuantity = 2f
+    private var secondPrizeQuantity = 1f
+    private var thirdPrizeQuantity = 1f
 
     //var winnersEveryHour = winnersInHalfDay / halfWorkHours
     private var winnersEveryHour = 5
@@ -73,22 +73,22 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
         if (isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f) {
             if (secondPrizeQuantity != 0f) {
                 if (thirdPrizeQuantity != 0f) {
-                    image1.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
-                    image2.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
+                    image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+                    image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
                     image3.setRandomValue(
-                        Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
+                        Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5
                     )
                 } else {
                     image1.setRandomValue(
-                        randomizeWithEliminatingNumber(2),
+                        randomizeWithEliminatingNumber(0),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
                     image2.setRandomValue(
-                        randomizeWithEliminatingNumber(2),
+                        randomizeWithEliminatingNumber(0),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
                     image3.setRandomValue(
-                        randomizeWithEliminatingNumber(2),
+                        randomizeWithEliminatingNumber(0),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
                 }
@@ -96,22 +96,22 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
             } else {
                 if (thirdPrizeQuantity != 0f) {
                     image1.setRandomValue(
-                        randomizeWithEliminatingNumber(3),
+                        randomizeWithEliminatingNumber(1),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
                     image2.setRandomValue(
-                        randomizeWithEliminatingNumber(3),
+                        randomizeWithEliminatingNumber(1),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
                     image3.setRandomValue(
-                        Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
+                        Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5
                     )
                 } else {
                     image1.setRandomValue(
-                        randomizeWithEliminatingTwoNumber(2, 3),
+                        randomizeWithEliminatingTwoNumber(0, 1),
                         Random.nextInt(15 - 5 + 1) + 5
                     )
-                    image2.setRandomValue(randomizeWithEliminatingTwoNumber(2, 3), Random.nextInt(15 - 5 + 1) + 5)
+                    image2.setRandomValue(randomizeWithEliminatingTwoNumber(0, 1), Random.nextInt(15 - 5 + 1) + 5)
                     image3.setRandomValue(
                         randomizeWithEliminatingTwoNumber(2, 3),
                         Random.nextInt(15 - 5 + 1) + 5
@@ -122,52 +122,52 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
         } else if (secondPrizeQuantity == 0f) {
             if (thirdPrizeQuantity != 0f) {
                 image1.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(3, 5),
+                    randomizeWithEliminatingTwoNumber(2, 1),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue(
-                    randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(2),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image3.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(3, 5),
+                    randomizeWithEliminatingTwoNumber(2, 1),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
             } else {
                 image1.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    randomizeWithEliminatingThreeNumber(0, 1, 2),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue((4..5).random(), Random.nextInt(15 - 5 + 1) + 5)
                 image3.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    randomizeWithEliminatingThreeNumber(0, 1, 2),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
             }
         } else if (secondPrizeQuantity != 0f) {
             if (thirdPrizeQuantity != 0f) {
                 image1.setRandomValue(
-                    randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(3),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue(
-                    randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(3),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image3.setRandomValue(
-                    randomizeWithEliminatingNumber(5),
+                    randomizeWithEliminatingNumber(3),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
             } else {
                 image1.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(2, 5),
+                    randomizeWithEliminatingTwoNumber(0, 3),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
                 image2.setRandomValue(
                     (4..5).random(),
                     Random.nextInt(15 - 5 + 1) + 5)
                 image3.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    randomizeWithEliminatingThreeNumber(0, 3, 5),
                     Random.nextInt(15 - 5 + 1) + 5
                 )
             }
@@ -224,16 +224,16 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
             if (image1.value == image2.value && image2.value == image3.value) {
                 Toast.makeText(context, "YOU WON!!!!", Toast.LENGTH_SHORT).show()
                 when (image1.value) {
-                    5 -> {
+                    2 -> {
                         isBiggestPrizeNotWon.postValue(false)
                         println("Biggest Prize not activated")
                     }
-                    3 -> {
+                    1 -> {
                         secondPrizeQuantity-=1
                         println("Second Prize WON")
 
                     }
-                    2 -> {
+                    0 -> {
                         thirdPrizeQuantity-=1
                         println("Third Prize WON")
                     }

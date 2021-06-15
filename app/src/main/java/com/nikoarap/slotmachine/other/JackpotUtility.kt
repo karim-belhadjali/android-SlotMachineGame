@@ -4,7 +4,7 @@ import kotlin.random.Random
 
 object JackpotUtility {
      fun randomizeWithEliminatingNumber(num: Int): Int {
-        var number = Random.nextInt(num)
+        var number = Random.nextInt(3)
         return if (number != num) {
             return number
         } else {
@@ -13,7 +13,7 @@ object JackpotUtility {
     }
 
      fun randomizeWithEliminatingTwoNumber(num: Int, num2: Int): Int {
-        var number = Random.nextInt(num)
+        var number = Random.nextInt(3)
         return if (number != num && number != num2) {
             return number
         } else {
@@ -22,7 +22,7 @@ object JackpotUtility {
     }
 
     fun randomizeWithEliminatingThreeNumber(num: Int, num2: Int, num3: Int): Int {
-        var number = Random.nextInt(num)
+        var number = Random.nextInt(3)
         return if (number != num && number != num2 && number != num3) {
             return number
         } else {
