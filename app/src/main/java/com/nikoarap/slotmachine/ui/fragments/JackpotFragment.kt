@@ -1,26 +1,23 @@
 package com.nikoarap.slotmachine.ui.fragments
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.nikoarap.slotmachine.R
+import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingNumber
+import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingThreeNumber
+import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingTwoNumber
 import com.nikoarap.slotmachine.slotImageScroll.EventEnd
 import com.nikoarap.slotmachine.slotImageScroll.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_jackpot.*
-import kotlinx.android.synthetic.main.main_activity_layout.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.Instant
-import java.util.*
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -28,42 +25,34 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
 
     private var countDown = 0
 
-    val sdf = SimpleDateFormat("hh:mm:ss")
-    val currentTime = sdf.format(Date())
-    var isBiggestPrizeNotWon = MutableLiveData<Boolean>()
-    val halfWorkHours = 4f
-    val timeForOneMassage = 15f
-    var winnersInHalfDay = halfWorkHours * 60f / timeForOneMassage
-    var secondPrizeQuantity = 3f
-    var thirdPrizeQuantity = 2f
+    private var isBiggestPrizeNotWon = MutableLiveData<Boolean>()
+    private val halfWorkHours = 4f
+    private val timeForOneMassage = 15f
+    private var winnersInHalfDay = halfWorkHours * 60f / timeForOneMassage
+    private var secondPrizeQuantity = 3f
+    private var thirdPrizeQuantity = 2f
 
     //var winnersEveryHour = winnersInHalfDay / halfWorkHours
-    var winnersEveryHour = 5
-    var winnersInHour = 0
+    private var winnersEveryHour = 5
+    private var winnersInHour = 0
 
     //var timeBetweenWinners = winnersEveryHour / 60f
-    var timeBetweenWinners = 1f
+    private var timeBetweenWinners = 1f
 
     private var lastHourTimeStamp = Instant.now()
     private var lastQuarterHourTimeStamp = Instant.now()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isBiggestPrizeNotWon.postValue(true);
-
+        isBiggestPrizeNotWon.postValue(true)
 
         image1.setEventEnd(this)
         image2.setEventEnd(this)
         image3.setEventEnd(this)
 
         subscribeToObserves()
-
-
 
         leverUp.setOnClickListener {
 
@@ -74,11 +63,13 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
                 Utils.score -= 50
                 score_tv.text = Utils.score.toString()
             } else {
-                Toast.makeText(context, "You dont have enough money", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You don't have enough money", Toast.LENGTH_SHORT).show()
             }
         }
     }
-    fun launchTheSlotMachine() {
+
+
+   private fun launchTheSlotMachine() {
         if (isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f) {
             if (secondPrizeQuantity != 0f) {
                 if (thirdPrizeQuantity != 0f) {
@@ -186,48 +177,21 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
 
     private fun subscribeToObserves() {
         isBiggestPrizeNotWon.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            BiggestPrizeCombination(it)
+            biggestPrizeCombination(it)
         })
     }
 
-    private fun randomizeWithEliminatingNumber(num: Int): Int {
-        var number = Random.nextInt(num)
-        return if (number != num) {
-            return number
-        } else {
-            randomizeWithEliminatingNumber(num)
-        }
-    }
-
-    private fun randomizeWithEliminatingTwoNumber(num: Int, num2: Int): Int {
-        var number = Random.nextInt(num)
-        return if (number != num && number != num2) {
-            return number
-        } else {
-            randomizeWithEliminatingTwoNumber(num, num2)
-        }
-    }
-
-    fun randomizeWithEliminatingThreeNumber(num: Int, num2: Int, num3: Int): Int {
-        var number = Random.nextInt(num)
-        return if (number != num && number != num2 && number != num3) {
-            return number
-        } else {
-            randomizeWithEliminatingThreeNumber(num, num2, num3)
-        }
-    }
-
-    fun BiggestPrizeCombination(timeIsNow: Boolean) {
+    private fun biggestPrizeCombination(timeIsNow: Boolean) {
         if (!timeIsNow) {
             GlobalScope.launch(Dispatchers.IO) {
                 while (winnersInHalfDay != 0f) {
-                    var currentHourTimeStamp = Instant.now()
-                    var currentQuarterHourTimeStamp = Instant.now()
+                    val currentHourTimeStamp = Instant.now()
+                    val currentQuarterHourTimeStamp = Instant.now()
                     val hour: Duration = Duration.between(lastHourTimeStamp, currentHourTimeStamp)
                     val minutes: Duration =
                         Duration.between(lastQuarterHourTimeStamp, currentQuarterHourTimeStamp)
-                    var minutesSince = minutes.toMinutes()
-                    var hourSinceWin = hour.toHours()
+                    val minutesSince = minutes.toMinutes()
+                    val hourSinceWin = hour.toHours()
 
                     if (hourSinceWin >= 1 && winnersInHalfDay != 0f) {
                         lastHourTimeStamp = Instant.now()
@@ -259,16 +223,20 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
 
             if (image1.value == image2.value && image2.value == image3.value) {
                 Toast.makeText(context, "YOU WON!!!!", Toast.LENGTH_SHORT).show()
-                if (image1.value == 5) {
-                    isBiggestPrizeNotWon.postValue(false)
-                    println("Biggest Prize not activated")
-                }else if (image1.value==3){
-                    secondPrizeQuantity-=1
-                    println("Second Prize WON")
+                when (image1.value) {
+                    5 -> {
+                        isBiggestPrizeNotWon.postValue(false)
+                        println("Biggest Prize not activated")
+                    }
+                    3 -> {
+                        secondPrizeQuantity-=1
+                        println("Second Prize WON")
 
-                }else if (image1.value==2){
-                    thirdPrizeQuantity-=1
-                    println("Third Prize WON")
+                    }
+                    2 -> {
+                        thirdPrizeQuantity-=1
+                        println("Third Prize WON")
+                    }
                 }
                 Utils.score += 300
                 score_tv.text = Utils.score.toString()
