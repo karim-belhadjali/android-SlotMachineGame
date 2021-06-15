@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.FloatRange
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.nikoarap.slotmachine.slotImageScroll.EventEnd
@@ -22,10 +23,12 @@ class MainActivity : AppCompatActivity(), EventEnd {
 
     val sdf = SimpleDateFormat("hh:mm:ss")
     val currentTime = sdf.format(Date())
-    var timeIsThere = MutableLiveData<Boolean>()
+    var isBiggestPrizeNotWon = MutableLiveData<Boolean>()
     val halfWorkHours = 4f
     val timeForOneMassage = 15f
     var winnersInHalfDay = halfWorkHours * 60f / timeForOneMassage
+    var secondPrizeQuantity = 3f
+    var thirdPrizeQuantity = 2f
 
     //var winnersEveryHour = winnersInHalfDay / halfWorkHours
     var winnersEveryHour = 5
@@ -41,7 +44,7 @@ class MainActivity : AppCompatActivity(), EventEnd {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_layout)
-        timeIsThere.postValue(true);
+        isBiggestPrizeNotWon.postValue(true);
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
@@ -57,20 +60,8 @@ class MainActivity : AppCompatActivity(), EventEnd {
 
             if (Utils.score >= 50) {
                 leverUp.visibility = View.GONE
-                layout_bar.setBackgroundResource(R.drawable.background2)
-                if (timeIsThere.value == true && winnersInHalfDay != 0f) {
-                    image1.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
-                    image2.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
-                    image3.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
-                    println("${timeIsThere.value}")
-                } else {
-                    image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-                    image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-                    image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-
-
-                }
-
+                // layout_bar.setBackgroundResource(R.drawable.background2)
+                launchTheSlotMachine()
                 Utils.score -= 50
                 score_tv.text = Utils.score.toString()
             } else {
@@ -79,12 +70,145 @@ class MainActivity : AppCompatActivity(), EventEnd {
         }
     }
 
-    fun subscribeToObserves(){
-        timeIsThere.observe(this, androidx.lifecycle.Observer {
-            possiblityChanged(it)
+    fun launchTheSlotMachine() {
+        if (isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f) {
+            if (secondPrizeQuantity != 0f) {
+                if (thirdPrizeQuantity != 0f) {
+                    image1.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
+                    image2.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5)
+                    image3.setRandomValue(Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
+                    )
+                } else {
+                    image1.setRandomValue(
+                        randomizeWithEliminatingNumber(2),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                    image2.setRandomValue(
+                        randomizeWithEliminatingNumber(2),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                    image3.setRandomValue(
+                        randomizeWithEliminatingNumber(2),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                }
+
+            } else {
+                if (thirdPrizeQuantity != 0f) {
+                    image1.setRandomValue(
+                        randomizeWithEliminatingNumber(3),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                    image2.setRandomValue(
+                        randomizeWithEliminatingNumber(3),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                    image3.setRandomValue(
+                        Random.nextInt(6), Random.nextInt(15 - 5 + 1) + 5
+                    )
+                } else {
+                    image1.setRandomValue(
+                        randomizeWithEliminatingTwoNumber(2, 3),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                    image2.setRandomValue(randomizeWithEliminatingTwoNumber(2, 3), Random.nextInt(15 - 5 + 1) + 5)
+                    image3.setRandomValue(
+                        randomizeWithEliminatingTwoNumber(2, 3),
+                        Random.nextInt(15 - 5 + 1) + 5
+                    )
+                }
+            }
+            println("${isBiggestPrizeNotWon.value}")
+        } else if (secondPrizeQuantity == 0f) {
+            if (thirdPrizeQuantity != 0f) {
+                image1.setRandomValue(
+                    randomizeWithEliminatingTwoNumber(3, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image2.setRandomValue(
+                     randomizeWithEliminatingNumber(5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image3.setRandomValue(
+                  randomizeWithEliminatingTwoNumber(3, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+            } else {
+                image1.setRandomValue(
+                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image2.setRandomValue((4..5).random(), Random.nextInt(15 - 5 + 1) + 5)
+                image3.setRandomValue(
+                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+            }
+        } else if (secondPrizeQuantity != 0f) {
+            if (thirdPrizeQuantity != 0f) {
+                image1.setRandomValue(
+                  randomizeWithEliminatingNumber(5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image2.setRandomValue(
+                   randomizeWithEliminatingNumber(5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image3.setRandomValue(
+                    randomizeWithEliminatingNumber(5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+            } else {
+                image1.setRandomValue(
+                    randomizeWithEliminatingTwoNumber(2, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+                image2.setRandomValue(
+                    (4..5).random(),
+                    Random.nextInt(15 - 5 + 1) + 5)
+                image3.setRandomValue(
+                    randomizeWithEliminatingThreeNumber(3, 2, 5),
+                    Random.nextInt(15 - 5 + 1) + 5
+                )
+            }
+        }
+
+    }
+
+    fun subscribeToObserves() {
+        isBiggestPrizeNotWon.observe(this, androidx.lifecycle.Observer {
+            BiggestPrizeCombination(it)
         })
     }
-    fun possiblityChanged(timeIsNow: Boolean) {
+
+    fun randomizeWithEliminatingNumber(num: Int): Int {
+        var number = Random.nextInt(num)
+        return if (number != num) {
+            return number
+        } else {
+            randomizeWithEliminatingNumber(num)
+        }
+    }
+
+    fun randomizeWithEliminatingTwoNumber(num: Int, num2: Int): Int {
+        var number = Random.nextInt(num)
+        return if (number != num && number != num2) {
+            return number
+        } else {
+            randomizeWithEliminatingTwoNumber(num, num2)
+        }
+    }
+
+    fun randomizeWithEliminatingThreeNumber(num: Int, num2: Int, num3: Int): Int {
+        var number = Random.nextInt(num)
+        return if (number != num && number != num2 && number != num3) {
+            return number
+        } else {
+            randomizeWithEliminatingThreeNumber(num, num2, num3)
+        }
+    }
+
+    fun BiggestPrizeCombination(timeIsNow: Boolean) {
         if (!timeIsNow) {
             GlobalScope.launch(Dispatchers.IO) {
                 while (winnersInHalfDay != 0f) {
@@ -98,13 +222,13 @@ class MainActivity : AppCompatActivity(), EventEnd {
 
                     if (hourSinceWin >= 1 && winnersInHalfDay != 0f) {
                         lastHourTimeStamp = Instant.now()
-                        timeIsThere.value = true// print after delay
+                        isBiggestPrizeNotWon.value = true// print after delay
                         println("TIME Hour")
                         winnersInHour = 0
 
                     } else if (minutesSince >= timeBetweenWinners && winnersInHalfDay != 0f && winnersInHour < winnersEveryHour) {
                         lastQuarterHourTimeStamp = Instant.now()
-                        timeIsThere.postValue(true)// print after delay
+                        isBiggestPrizeNotWon.postValue(true)// print after delay
                         winnersInHalfDay -= 1
                         winnersInHour += 1
                         println("TIME minutes")
@@ -119,15 +243,21 @@ class MainActivity : AppCompatActivity(), EventEnd {
             countDown++
         } else {
             leverUp.visibility = View.VISIBLE
-            layout_bar.setBackgroundResource(R.drawable.background1)
+            // layout_bar.setBackgroundResource(R.drawable.background1)
             countDown = 0
 
             if (image1.value == image2.value && image2.value == image3.value) {
                 Toast.makeText(this, "YOU WON!!!!", Toast.LENGTH_SHORT).show()
                 if (image1.value == 5) {
-                    timeIsThere.postValue(false)
-                    println("not activated")
+                    isBiggestPrizeNotWon.postValue(false)
+                    println("Biggest Prize not activated")
+                }else if (image1.value==3){
+                    secondPrizeQuantity-=1
+                    println("Second Prize WON")
 
+                }else if (image1.value==2){
+                    thirdPrizeQuantity-=1
+                    println("Third Prize WON")
                 }
                 Utils.score += 300
                 score_tv.text = Utils.score.toString()
