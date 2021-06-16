@@ -1,16 +1,25 @@
 package com.nikoarap.slotmachine.db.classes
 
 import android.graphics.Bitmap
+import android.provider.ContactsContract
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "configuration_table")
 data class Configuration(
-    var timestamp: Long = 0L,
-    var avgSpeedInKMH: Float = 0f,
-    var distanceInMeters: Int = 0,
-    var timeInMillis: Long = 0L,
-    var caloriesBurned: Int = 0
+
+    var bigPrizeWinners : Long,
+
+    var secondPrizeWinners: Long ,
+
+    var thirdPrizeWinners: Long,
+
+    var firstHalfHours : Long,
+
+    var secondHalfHours: Long
+
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

@@ -8,7 +8,4 @@ class JackpotViewModel @ViewModelInject constructor(
     val mainRepository: MainRepository
 ) : ViewModel() {
 
-    val prizesConfiguration = mainRepository.getConfiguration();
-
-
 }

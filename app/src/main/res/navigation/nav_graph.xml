@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/jackpotFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/jackpotFragment"
         android:name="com.nikoarap.slotmachine.ui.fragments.JackpotFragment"
         android:label="fragment_jackpot"
         tools:layout="@layout/fragment_jackpot" />
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.DashboardFragment"
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_jackpotFragment"
+            app:destination="@id/jackpotFragment" />
+    </fragment>
 </navigation>

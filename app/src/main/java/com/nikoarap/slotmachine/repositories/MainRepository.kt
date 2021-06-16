@@ -15,12 +15,5 @@ class MainRepository @Inject constructor(
 
     suspend fun updateUser(user: User) = jackpotDao.updateUser(user)
 
-    suspend fun insertConfiguration(configuration: Configuration) =
-        jackpotDao.insertConfiguration(configuration)
 
-    suspend fun updateConfiguration(configuration: Configuration) =
-        jackpotDao.updateConfiguration(configuration)
-
-     fun getConfiguration() =
-        jackpotDao.getConfiguration()
 }

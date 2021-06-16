@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.nikoarap.slotmachine.db.dao.JackpotDao
 
 @Database(
-    entities = [User::class, Configuration::class],
+    entities = [User::class],
     version = 1
 )
 abstract class JackpotDataBase : RoomDatabase() {
