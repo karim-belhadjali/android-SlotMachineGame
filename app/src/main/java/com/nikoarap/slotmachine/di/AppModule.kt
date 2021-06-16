@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.nikoarap.slotmachine.db.classes.JackpotDataBase
-jackimport com.nikoarap.slotmachine.db.dao.JackpotDao
+import com.nikoarap.slotmachine.db.dao.JackpotDao
 import com.nikoarap.slotmachine.other.Constants.JACKPOT_DATABASE_NAME
 import com.nikoarap.slotmachine.other.Constants.KEY_NAME
 import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
