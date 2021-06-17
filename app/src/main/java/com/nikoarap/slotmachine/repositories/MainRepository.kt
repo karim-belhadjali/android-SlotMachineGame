@@ -15,5 +15,6 @@ class MainRepository @Inject constructor(
 
     suspend fun updateUser(user: User) = jackpotDao.updateUser(user)
 
+    fun getUsersCount()= jackpotDao.getUsersCount()
 
 }

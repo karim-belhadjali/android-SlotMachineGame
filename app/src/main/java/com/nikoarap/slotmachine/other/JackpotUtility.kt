@@ -22,7 +22,7 @@ object JackpotUtility {
     }
 
     fun randomizeWithEliminatingThreeNumber(num: Int, num2: Int, num3: Int): Int {
-        var number = Random.nextInt(3)
+        var number = Random.nextInt(6)
         return if (number != num && number != num2 && number != num3) {
             return number
         } else {

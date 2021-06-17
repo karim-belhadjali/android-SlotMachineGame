@@ -1,7 +1,8 @@
 package com.nikoarap.slotmachine.slotImageScroll
 
-interface EventEnd {
+import android.os.Bundle
 
+interface EventEnd {
     fun eventEnd(result: Int, count: Int)
 
 }

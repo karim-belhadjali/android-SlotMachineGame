@@ -1,11 +1,14 @@
 package com.nikoarap.slotmachine.ui.fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.nikoarap.slotmachine.R
+import com.nikoarap.slotmachine.other.Constants.KEY_PRIZE
 import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingNumber
 import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingThreeNumber
 import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingTwoNumber
@@ -18,10 +21,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
+import javax.inject.Inject
 import kotlin.random.Random
 
 @AndroidEntryPoint
-class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
+class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     private var countDown = 0
 
@@ -43,7 +50,6 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
     private var lastQuarterHourTimeStamp = Instant.now()
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isBiggestPrizeNotWon.postValue(true)
@@ -58,7 +64,6 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
 
             if (Utils.score >= 50) {
                 leverUp.visibility = View.GONE
-                // layout_bar.setBackgroundResource(R.drawable.background2)
                 launchTheSlotMachine()
                 Utils.score -= 50
                 score_tv.text = Utils.score.toString()
@@ -69,107 +74,41 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
     }
 
 
-   private fun launchTheSlotMachine() {
-        if (isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f) {
-            if (secondPrizeQuantity != 0f) {
-                if (thirdPrizeQuantity != 0f) {
-                    image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-                    image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-                    image3.setRandomValue(
-                        Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5
-                    )
+    private fun launchTheSlotMachine() {
+        if (checkIfBigPrizeIsAvailable()) {
+            if (checkIfSecondPrizeIsAvailable()) {
+
+                if (checkIfThirdPrizeIsAvailable()) {
+
+                    launchWhenAllPrizesAvailable()
                 } else {
-                    image1.setRandomValue(
-                        randomizeWithEliminatingNumber(0),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
-                    image2.setRandomValue(
-                        randomizeWithEliminatingNumber(0),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
-                    image3.setRandomValue(
-                        randomizeWithEliminatingNumber(0),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
+                    launchWhenOnlyThirdPrizeIsNotAvailable()
                 }
 
             } else {
-                if (thirdPrizeQuantity != 0f) {
-                    image1.setRandomValue(
-                        randomizeWithEliminatingNumber(1),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
-                    image2.setRandomValue(
-                        randomizeWithEliminatingNumber(1),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
-                    image3.setRandomValue(
-                        Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5
-                    )
+                if (checkIfThirdPrizeIsAvailable()) {
+
+                    launchWhenOnlySecondPrizeIsNotAvailable()
                 } else {
-                    image1.setRandomValue(
-                        randomizeWithEliminatingTwoNumber(0, 1),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
-                    image2.setRandomValue(randomizeWithEliminatingTwoNumber(0, 1), Random.nextInt(15 - 5 + 1) + 5)
-                    image3.setRandomValue(
-                        randomizeWithEliminatingTwoNumber(2, 3),
-                        Random.nextInt(15 - 5 + 1) + 5
-                    )
+                    launchWhenThirdAndSecondPrizeIsNotAvailable()
                 }
             }
             println("${isBiggestPrizeNotWon.value}")
-        } else if (secondPrizeQuantity == 0f) {
-            if (thirdPrizeQuantity != 0f) {
-                image1.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(2, 1),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image2.setRandomValue(
-                    randomizeWithEliminatingNumber(2),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image3.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(2, 1),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
+        } else if (!checkIfSecondPrizeIsAvailable()) {
+
+            if (checkIfThirdPrizeIsAvailable()) {
+
+                launchWhenFirstAndSecondPrizeIsNotAvailable()
             } else {
-                image1.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(0, 1, 2),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image2.setRandomValue((4..5).random(), Random.nextInt(15 - 5 + 1) + 5)
-                image3.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(0, 1, 2),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
+                launchWhenNoPrizeIsAvailable()
             }
-        } else if (secondPrizeQuantity != 0f) {
-            if (thirdPrizeQuantity != 0f) {
-                image1.setRandomValue(
-                    randomizeWithEliminatingNumber(3),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image2.setRandomValue(
-                    randomizeWithEliminatingNumber(3),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image3.setRandomValue(
-                    randomizeWithEliminatingNumber(3),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
+        } else if (checkIfSecondPrizeIsAvailable()) {
+
+            if (checkIfThirdPrizeIsAvailable()) {
+
+                launchWhenOnlyFirstPrizeIsNotAvailable()
             } else {
-                image1.setRandomValue(
-                    randomizeWithEliminatingTwoNumber(0, 3),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
-                image2.setRandomValue(
-                    (4..5).random(),
-                    Random.nextInt(15 - 5 + 1) + 5)
-                image3.setRandomValue(
-                    randomizeWithEliminatingThreeNumber(0, 3, 5),
-                    Random.nextInt(15 - 5 + 1) + 5
-                )
+                launchWhenOnlyFirstAndThirdPrizeIsNotAvailable()
             }
         }
 
@@ -212,7 +151,6 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
     }
 
 
-
     override fun eventEnd(result: Int, count: Int) {
         if (countDown < 2) {
             countDown++
@@ -229,27 +167,141 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot),EventEnd {
                         println("Biggest Prize not activated")
                     }
                     1 -> {
-                        secondPrizeQuantity-=1
+                        secondPrizeQuantity -= 1
                         println("Second Prize WON")
 
                     }
                     0 -> {
-                        thirdPrizeQuantity-=1
+                        thirdPrizeQuantity -= 1
                         println("Third Prize WON")
                     }
                 }
                 Utils.score += 300
                 score_tv.text = Utils.score.toString()
+
+                sharedPreferences.edit()
+                    .putInt(KEY_PRIZE, image1.value)
+                    .apply()
+
+                findNavController().navigate(
+                    R.id.action_jackpotFragment_to_youWonFragment
+                )
             } else if (image1.value == image2.value || image2.value == image3.value || image1.value == image3.value) {
                 Toast.makeText(context, "You did good.", Toast.LENGTH_SHORT).show()
                 Utils.score += 100
                 score_tv.text = Utils.score.toString()
+
+                findNavController().navigate(
+                    R.id.action_jackpotFragment_to_youWonFragment
+                )
             } else {
-                Toast.makeText(context, "You lost. Better luck next time.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You lost. Better luck next time.", Toast.LENGTH_SHORT)
+                    .show()
                 Utils.score += 0
                 score_tv.text = Utils.score.toString()
+
+                findNavController().navigate(
+                    R.id.action_jackpotFragment_to_youWonFragment
+                )
             }
         }
     }
+
+    private fun checkIfBigPrizeIsAvailable(): Boolean {
+        return isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f
+    }
+
+    private fun checkIfSecondPrizeIsAvailable(): Boolean {
+        return secondPrizeQuantity != 0f
+    }
+
+    private fun checkIfThirdPrizeIsAvailable(): Boolean {
+        return thirdPrizeQuantity != 0f
+    }
+
+    private fun launchWhenAllPrizesAvailable() {
+        image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+    }
+
+    private fun launchWhenOnlyThirdPrizeIsNotAvailable() {
+        image1.setRandomValue(randomizeWithEliminatingNumber(0), Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(randomizeWithEliminatingNumber(0), Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(randomizeWithEliminatingNumber(0), Random.nextInt(15 - 5 + 1) + 5)
+    }
+
+    private fun launchWhenOnlySecondPrizeIsNotAvailable() {
+        image1.setRandomValue(randomizeWithEliminatingNumber(1), Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(randomizeWithEliminatingNumber(1), Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(randomizeWithEliminatingNumber(1), Random.nextInt(15 - 5 + 1) + 5)
+    }
+
+    private fun launchWhenThirdAndSecondPrizeIsNotAvailable() {
+        image1.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image2.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image3.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+    }
+
+    private fun launchWhenFirstAndSecondPrizeIsNotAvailable() {
+        image1.setRandomValue(
+            randomizeWithEliminatingTwoNumber(2, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image2.setRandomValue(
+            randomizeWithEliminatingTwoNumber(2, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image3.setRandomValue(
+            randomizeWithEliminatingTwoNumber(2, 1),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+    }
+
+    private fun launchWhenNoPrizeIsAvailable() {
+        image1.setRandomValue(
+            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image2.setRandomValue(
+            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image3.setRandomValue(
+            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+    }
+
+    private fun launchWhenOnlyFirstPrizeIsNotAvailable() {
+        image1.setRandomValue(randomizeWithEliminatingNumber(3), Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(randomizeWithEliminatingNumber(3), Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(randomizeWithEliminatingNumber(3), Random.nextInt(15 - 5 + 1) + 5)
+    }
+
+    private fun launchWhenOnlyFirstAndThirdPrizeIsNotAvailable() {
+        image1.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 3),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image2.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 3),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+        image3.setRandomValue(
+            randomizeWithEliminatingTwoNumber(0, 3),
+            Random.nextInt(15 - 5 + 1) + 5
+        )
+    }
+
 
 }

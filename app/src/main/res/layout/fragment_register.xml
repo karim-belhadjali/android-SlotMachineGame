@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.DashboardFragment">
+    tools:context=".ui.fragments.RegisterFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -29,14 +29,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Big Prize">
+                android:hint="First Name">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_bigPrize"
+                    android:id="@+id/tv_firstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="numberDecimal" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -45,14 +45,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Second Prize">
+                android:hint="Last Name">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_secondPrize"
+                    android:id="@+id/tv_lastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="numberDecimal" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -63,14 +63,14 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Third Prize">
+                android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_thirdPrize"
+                    android:id="@+id/tv_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="numberDecimal" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -79,14 +79,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Hours of Work in the Morning">
+                android:hint="Phone Number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_halfHours"
+                    android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -96,21 +96,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Hours Of Work in the evening">
+                android:hint="Birth Date">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_secondHalfHours"
+                    android:id="@+id/tv_birthDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="numberDecimal" />
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="Birth Place">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_birthPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsmedium"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
     <Button
-        android:id="@+id/btn_saveConfig"
+        android:id="@+id/btn_saveUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
@@ -119,7 +135,17 @@
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/tv_userCount"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.478" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

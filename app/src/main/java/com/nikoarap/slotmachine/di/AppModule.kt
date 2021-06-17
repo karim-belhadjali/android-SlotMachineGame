@@ -29,7 +29,9 @@ object AppModule {
         app,
         JackpotDataBase::class.java,
         JACKPOT_DATABASE_NAME
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
 
     @Singleton

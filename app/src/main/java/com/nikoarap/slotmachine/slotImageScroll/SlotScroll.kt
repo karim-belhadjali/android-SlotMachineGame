@@ -2,6 +2,7 @@ package com.nikoarap.slotmachine.slotImageScroll
 
 import android.animation.Animator
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout

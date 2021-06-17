@@ -19,7 +19,7 @@ interface JackpotDao {
     suspend fun updateUser(user: User)
 
     @Query("SELECT COUNT(*) FROM user_table ")
-     fun getUsersCount(): LiveData<Float>
+     fun getUsersCount(): LiveData<Int>
 
 
 

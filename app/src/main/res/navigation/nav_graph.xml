@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/jackpotFragment">
 
     <fragment
         android:id="@+id/jackpotFragment"
         android:name="com.nikoarap.slotmachine.ui.fragments.JackpotFragment"
         android:label="fragment_jackpot"
-        tools:layout="@layout/fragment_jackpot" />
+        tools:layout="@layout/fragment_jackpot" >
+        <action
+            android:id="@+id/action_jackpotFragment_to_youWonFragment"
+            app:destination="@id/youWonFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.nikoarap.slotmachine.ui.fragments.DashboardFragment"
@@ -17,5 +21,30 @@
         <action
             android:id="@+id/action_dashboardFragment_to_jackpotFragment"
             app:destination="@id/jackpotFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_jackpotFragment"
+            app:destination="@id/jackpotFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thankYouFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.ThankYouFragment"
+        android:label="fragment_thank_you"
+        tools:layout="@layout/fragment_thank_you" >
+        <action
+            android:id="@+id/action_thankYouFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/youWonFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.YouWonFragment"
+        android:label="YouWonFragment" >
+        <action
+            android:id="@+id/action_youWonFragment_to_thankYouFragment"
+            app:destination="@id/thankYouFragment" />
     </fragment>
 </navigation>
