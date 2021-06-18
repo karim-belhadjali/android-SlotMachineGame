@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/jackpotFragment">
+    app:startDestination="@id/testFragment">
 
     <fragment
         android:id="@+id/jackpotFragment"
@@ -47,4 +47,9 @@
             android:id="@+id/action_youWonFragment_to_thankYouFragment"
             app:destination="@id/thankYouFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
 </navigation>
