@@ -66,7 +66,7 @@
 
 
             <LinearLayout
-                android:id="@+id/logo"
+                android:id="@+id/logo_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -233,34 +233,21 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <RelativeLayout
+            <Button
                 android:id="@+id/secondary_bb"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/secondary_bb"
+                android:background="@drawable/btn_suivant"
                 android:elevation="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline7"
-                app:layout_constraintTop_toBottomOf="@+id/rectangle_3">
+                app:layout_constraintTop_toBottomOf="@+id/rectangle_3"/>
 
-                <TextView
-                    android:id="@+id/label"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingExtra="0sp"
-                    android:text="@string/label"
-                    android:textAppearance="@style/label" />
 
-            </RelativeLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline6"

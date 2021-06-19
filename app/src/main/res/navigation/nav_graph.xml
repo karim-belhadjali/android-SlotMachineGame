@@ -51,5 +51,5 @@
         android:id="@+id/testFragment"
         android:name="com.nikoarap.slotmachine.ui.fragments.TestFragment"
         android:label="fragment_test"
-        tools:layout="@layout/fragment_test" />
+        tools:layout="@layout/fragment_test_register" />
 </navigation>

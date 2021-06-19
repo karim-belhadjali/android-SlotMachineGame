@@ -75,6 +75,9 @@
 
     <string name="label">Suivant</string>
     <string name="label1">Dashboard</string>
-
+    <string name="user_count">Nombre de participants : 1203</string>
+    <string name="title_box_conf1">Enregistrer le nombre de cadeaux</string>
+    <string name="title_box_conf2_1">Heures De Travail Matin</string>
+    <string name="title_box_conf2_2">Heures De Travail Après Midi</string>
 
 </resources>
