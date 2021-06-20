@@ -27,7 +27,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-
             android:background="@drawable/logo"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/guideline8"
@@ -102,7 +101,7 @@
             android:orientation="horizontal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/partnerbg"
+            android:background="@drawable/partnercashplus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rectangle_4"
