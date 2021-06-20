@@ -36,15 +36,15 @@
         app:layout_constraintGuide_percent="0.2" />
 
     <TextView
-        android:id="@+id/f_licitatio"
+        android:id="@+id/tv_felicitations"
         android:layout_width="941dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="0sp"
-        android:text="@string/f_licitatio"
-        android:textAppearance="@style/f_licitatio"
+        android:text="@string/felicitation"
+        android:textAppearance="@style/felicitation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/f_licitatio"
+        app:layout_constraintTop_toBottomOf="@+id/tv_felicitations"
         app:layout_constraintVertical_bias="0.07" />
 
     <LinearLayout
