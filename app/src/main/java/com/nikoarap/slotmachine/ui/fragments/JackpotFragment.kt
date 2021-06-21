@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_jackpot.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -62,14 +63,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
         leverUp.setOnClickListener {
 
-            if (Utils.score >= 50) {
                 leverUp.visibility = View.GONE
                 launchTheSlotMachine()
-                Utils.score -= 50
-                score_tv.text = Utils.score.toString()
-            } else {
-                Toast.makeText(context, "You don't have enough money", Toast.LENGTH_SHORT).show()
-            }
+
         }
     }
 
@@ -164,45 +160,43 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 when (image1.value) {
                     2 -> {
                         isBiggestPrizeNotWon.postValue(false)
-                        println("Biggest Prize not activated")
                     }
                     1 -> {
                         secondPrizeQuantity -= 1
-                        println("Second Prize WON")
 
                     }
                     0 -> {
                         thirdPrizeQuantity -= 1
-                        println("Third Prize WON")
                     }
                 }
-                Utils.score += 300
-                score_tv.text = Utils.score.toString()
 
                 sharedPreferences.edit()
                     .putInt(KEY_PRIZE, image1.value)
                     .apply()
 
-                findNavController().navigate(
-                    R.id.action_jackpotFragment_to_youWonFragment
-                )
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(2000)
+                    findNavController().navigate(
+                        R.id.action_jackpotFragment_to_youWonFragment
+                    )
+                }
+
             } else if (image1.value == image2.value || image2.value == image3.value || image1.value == image3.value) {
-                Toast.makeText(context, "You did good.", Toast.LENGTH_SHORT).show()
-                Utils.score += 100
-                score_tv.text = Utils.score.toString()
 
-                findNavController().navigate(
-                    R.id.action_jackpotFragment_to_youWonFragment
-                )
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(2000)
+                    findNavController().navigate(
+                        R.id.action_jackpotFragment_to_thankYouFragment
+                    )
+                }
+
             } else {
-                Toast.makeText(context, "You lost. Better luck next time.", Toast.LENGTH_SHORT)
-                    .show()
-                Utils.score += 0
-                score_tv.text = Utils.score.toString()
-
-                findNavController().navigate(
-                    R.id.action_jackpotFragment_to_youWonFragment
-                )
+                GlobalScope.launch(Dispatchers.IO) {
+                    delay(2000)
+                    findNavController().navigate(
+                        R.id.action_jackpotFragment_to_thankYouFragment
+                    )
+                }
             }
         }
     }

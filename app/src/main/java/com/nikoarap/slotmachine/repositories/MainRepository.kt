@@ -17,4 +17,6 @@ class MainRepository @Inject constructor(
 
     fun getUsersCount()= jackpotDao.getUsersCount()
 
+    fun getUsers()= jackpotDao.getUsers()
+
 }

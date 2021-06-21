@@ -53,7 +53,7 @@ class ThankYouFragment : Fragment(R.layout.fragment_thank_you) {
                 .putString(KEY_NAME,"")
                 .apply()
             findNavController().navigate(
-                R.id.action_thankYouFragment_to_dashboardFragment,
+                R.id.action_thankYouFragment_to_registerFragment,
                 savedInstanceState
 
             )

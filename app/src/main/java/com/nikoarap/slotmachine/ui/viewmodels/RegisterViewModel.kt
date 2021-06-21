@@ -17,4 +17,7 @@ class RegisterViewModel @ViewModelInject constructor(
         mainRepository.insertUser(user)
 
     }
+
+    val users= mainRepository.getUsers()
+
 }

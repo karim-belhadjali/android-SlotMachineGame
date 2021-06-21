@@ -10,7 +10,7 @@
     android:background="#f44336">
 
     <Button
-        android:id="@+id/btn_retour"
+        android:id="@+id/btn_retourr"
         android:layout_width="170dp"
         android:layout_height="76dp"
         android:layout_alignParentStart="true"
@@ -116,7 +116,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tv_secondPrize"
+                        android:id="@+id/tv_secondPrizee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -209,7 +209,7 @@
                     android:id="@+id/textInputLayout5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="#1 Smiley"
+                    android:hint="Hours of Work in the Morning"
                     app:layout_constraintBottom_toTopOf="@+id/guideline13"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -260,7 +260,7 @@
                     android:id="@+id/textInputLayout6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="#1 Smiley"
+                    android:hint="Hours Of Work in the evening"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -350,7 +350,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_export"
+            android:id="@+id/btn_exportt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"

@@ -13,6 +13,10 @@ import com.nikoarap.slotmachine.slotImageScroll.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_thank_you.*
 import kotlinx.android.synthetic.main.fragment_you_won.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,26 +27,26 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userName = sharedPreferences.getString(Constants.KEY_NAME, "")
         val prizenumber = sharedPreferences.getInt(Constants.KEY_PRIZE, 5)
 
         when (prizenumber) {
-            Utils.bar -> img_won!!.setImageResource(R.drawable.bar)
-            Utils.lemon -> img_won!!.setImageResource(R.drawable.lemon)
-            Utils.orange -> img_won!!.setImageResource(R.drawable.orange)
-            Utils.seven -> img_won!!.setImageResource(R.drawable.seven)
-            Utils.triple -> img_won!!.setImageResource(R.drawable.triple_seven)
-            Utils.watermelon -> img_won!!.setImageResource(R.drawable.watermelon)
+            Utils.bar -> img_won!!.setImageResource(R.drawable.youwon)
+            Utils.lemon -> img_won!!.setImageResource(R.drawable.youwon)
+            Utils.orange -> img_won!!.setImageResource(R.drawable.youwon)
+            Utils.seven -> img_won!!.setImageResource(R.drawable.youwon)
+            Utils.triple -> img_won!!.setImageResource(R.drawable.youwon)
+            Utils.watermelon -> img_won!!.setImageResource(R.drawable.youwon)
         }
 
-
-        btn_gotToThankYou.setOnClickListener {
-
+        GlobalScope.launch(Dispatchers.IO) {
+            delay(5000)
             findNavController().navigate(
-                R.id.action_youWonFragment_to_thankYouFragment,
-                savedInstanceState
-
+                R.id.action_youWonFragment_to_thankYouFragment
             )
         }
+
+
+
+
     }
 }

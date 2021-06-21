@@ -21,6 +21,11 @@ import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register.tv_email
+import kotlinx.android.synthetic.main.fragment_register.tv_firstName
+import kotlinx.android.synthetic.main.fragment_register.tv_lastName
+import kotlinx.android.synthetic.main.fragment_register.tv_phone
+import kotlinx.android.synthetic.main.fragment_test_register.*
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
@@ -38,7 +43,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val newUser = sharedPreferences.getBoolean(Constants.KEY_NEW_USER, true)
 
 
-        if (!newUser) {
+       /* if (!newUser) {
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.registerFragment, true)
                 .build()
@@ -48,9 +53,15 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 savedInstanceState,
                 navOptions
             )
+        }*/
+
+
+        btn_goDashboard.setOnClickListener{
+            findNavController().navigate(
+                R.id.action_registerFragment_to_dashboardFragment,
+                savedInstanceState
+            )
         }
-
-
 
 
         btn_saveUser.setOnClickListener {
@@ -59,33 +70,34 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 Snackbar.make(requireView(), Constants.ENTER_ALL_VALUES, Snackbar.LENGTH_SHORT)
                     .show()
             } else {
+                val userFirstName = tv_firstName.text.toString()
+                val userLastName = tv_lastName.text.toString()
+                val userEmail = tv_email.text.toString()
+                val userPhone = tv_phone.text.toString().toLong()
+                val userBirthDate = tv_birthDate.text.toString()
+                val userBirthPlace = tv_birthPlace.text.toString()
+                user=User(userFirstName,userLastName,userEmail,userPhone,userBirthDate,userBirthPlace)
 
+                saveUser(user)
+
+                Snackbar.make(
+                    requireView(),
+                    Constants.USER_SAVED_SUCCESSFULLY,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
+                findNavController().navigate(
+                    R.id.action_registerFragment_to_jackpotFragment,
+                    savedInstanceState
+                )
             }
-            val userFirstName = tv_firstName.text.toString()
-            val userLastName = tv_lastName.text.toString()
-            val userEmail = tv_email.text.toString()
-            val userPhone = tv_phone.text.toString().toLong()
-            val userBirthDate = tv_birthDate.text.toString()
-            val userBirthPlace = tv_birthPlace.text.toString()
 
-            user=User(userFirstName,userLastName,userEmail,userPhone,userBirthDate,userBirthPlace)
 
-            saveUser(user)
 
-            Snackbar.make(
-                requireView(),
-                Constants.USER_SAVED_SUCCESSFULLY,
-                Snackbar.LENGTH_SHORT
-            ).show()
 
-            viewModel.userCount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                tv_userCount.setText(it.absoluteValue.toString())
-            })
 
-           /* findNavController().navigate(
-                R.id.action_dashboardFragment_to_jackpotFragment,
-                savedInstanceState
-            )*/
+
+
 
 
         }

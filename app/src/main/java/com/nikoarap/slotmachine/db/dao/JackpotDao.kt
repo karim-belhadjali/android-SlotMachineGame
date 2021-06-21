@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.nikoarap.slotmachine.db.classes.Configuration
 import com.nikoarap.slotmachine.db.classes.User
+import java.util.*
 
 @Dao
 interface JackpotDao {
@@ -22,6 +23,7 @@ interface JackpotDao {
      fun getUsersCount(): LiveData<Int>
 
 
-
+    @Query("SELECT * FROM user_table ")
+    fun getUsers(): LiveData<List<User>>
 
 }
