@@ -3,7 +3,6 @@ package com.nikoarap.slotmachine.ui.fragments
 import android.Manifest
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -25,6 +24,9 @@ import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import pub.devrel.easypermissions.EasyPermissions.hasPermissions
 import java.io.File
@@ -151,101 +153,102 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
     }
 
-    private fun exportCSV() {
-        val path = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        println(path)
 
-    }
 
     fun createExcel(users: List<User>) {
-
-        if (!hasPermissions(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
+        if (!hasPermissions(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         ) {
             requestWritePermissions()
         } else {
-
-            val filePath = File(Environment.getExternalStorageDirectory().toString() + "/Users.xls")
-            val hssfWorkbook = HSSFWorkbook()
-            val hssfSheet = hssfWorkbook.createSheet("Participants sheet")
-            val hssfRow = hssfSheet.createRow(0)
-            val hssfCellFirstName = hssfRow.createCell(0)
-            hssfCellFirstName.setCellValue("Nom")
-
-            val hssfCellLastName = hssfRow.createCell(1)
-            hssfCellLastName.setCellValue("Prénom")
-
-            val hssfCellPhone = hssfRow.createCell(2)
-            hssfCellPhone.setCellValue("Telephone")
-
-            val hssfCellEmail = hssfRow.createCell(3)
-            hssfCellEmail.setCellValue("Email")
-
-            val hssfCellAddress = hssfRow.createCell(4)
-            hssfCellAddress.setCellValue("Adresse")
-
-            val hssfCellPostalCode = hssfRow.createCell(5)
-            hssfCellPostalCode.setCellValue("Code postal")
-
-            val hssfCellBirthDate = hssfRow.createCell(6)
-            hssfCellBirthDate.setCellValue("Date de naissance")
-
-            val hssfCellBirthPlace = hssfRow.createCell(7)
-            hssfCellBirthPlace.setCellValue("Lieu de naissance")
-
-            if (users.isNotEmpty()) {
-
-                for ((i, user: User) in users.withIndex()) {
-
-                    val newRow = hssfSheet.createRow(i)
-                    val newCellFirstName = newRow.createCell(0)
-                    newCellFirstName.setCellValue(user.lastName)
-
-                    val newCellLastName = newRow.createCell(1)
-                    newCellLastName.setCellValue(user.firstName)
-
-                    val newCellPhone = newRow.createCell(2)
-                    newCellPhone.setCellValue(user.telephone.toString())
-
-                    val newCellEmail = newRow.createCell(3)
-                    newCellEmail.setCellValue(user.email)
-
-                    val newCellAddress = newRow.createCell(4)
-                    newCellAddress.setCellValue("Adresse")
-
-                    val newCellPostalCode = newRow.createCell(5)
-                    newCellPostalCode.setCellValue("Code postal")
-
-                    val newCellBirthDate = newRow.createCell(6)
-                    newCellBirthDate.setCellValue(user.birthDate)
-
-                    val newCellBirthPlace = newRow.createCell(7)
-                    newCellBirthPlace.setCellValue(user.birthPlace)
-
-                }
-                println("done")
+            GlobalScope.launch(Dispatchers.IO) {
+                exportExcel(users)
+                findNavController().navigate(
+                    R.id.action_dashboardFragment_to_registerFragment
+                )
             }
 
-
-
-            try {
-                if (!filePath.exists()) {
-                    filePath.createNewFile()
-                }
-                val fileOutputStream = FileOutputStream(filePath)
-                hssfWorkbook.write(fileOutputStream)
-
-                fileOutputStream.flush()
-                fileOutputStream.close()
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
         }
 
+
+    }
+
+    suspend fun exportExcel(users: List<User>) {
+        val filePath = File(Environment.getExternalStorageDirectory().toString() + "/Users.xls")
+        val hssfWorkbook = HSSFWorkbook()
+        val hssfSheet = hssfWorkbook.createSheet("Participants sheet")
+        val hssfRow = hssfSheet.createRow(0)
+        val hssfCellFirstName = hssfRow.createCell(0)
+        hssfCellFirstName.setCellValue("Nom")
+
+        val hssfCellLastName = hssfRow.createCell(1)
+        hssfCellLastName.setCellValue("Prénom")
+
+        val hssfCellPhone = hssfRow.createCell(2)
+        hssfCellPhone.setCellValue("Telephone")
+
+        val hssfCellEmail = hssfRow.createCell(3)
+        hssfCellEmail.setCellValue("Email")
+
+        val hssfCellAddress = hssfRow.createCell(4)
+        hssfCellAddress.setCellValue("Adresse")
+
+        val hssfCellPostalCode = hssfRow.createCell(5)
+        hssfCellPostalCode.setCellValue("Code postal")
+
+        val hssfCellBirthDate = hssfRow.createCell(6)
+        hssfCellBirthDate.setCellValue("Date de naissance")
+
+        val hssfCellBirthPlace = hssfRow.createCell(7)
+        hssfCellBirthPlace.setCellValue("Lieu de naissance")
+
+        if (users.isNotEmpty()) {
+            var i=1
+            for ( user: User in users) {
+
+                val newRow = hssfSheet.createRow(i)
+                val newCellFirstName = newRow.createCell(0)
+                newCellFirstName.setCellValue(user.lastName)
+
+                val newCellLastName = newRow.createCell(1)
+                newCellLastName.setCellValue(user.firstName)
+
+                val newCellPhone = newRow.createCell(2)
+                newCellPhone.setCellValue(user.telephone.toString())
+
+                val newCellEmail = newRow.createCell(3)
+                newCellEmail.setCellValue(user.email)
+
+                val newCellAddress = newRow.createCell(4)
+                newCellAddress.setCellValue("Adresse")
+
+                val newCellPostalCode = newRow.createCell(5)
+                newCellPostalCode.setCellValue("Code postal")
+
+                val newCellBirthDate = newRow.createCell(6)
+                newCellBirthDate.setCellValue(user.birthDate)
+
+                val newCellBirthPlace = newRow.createCell(7)
+                newCellBirthPlace.setCellValue(user.birthPlace)
+                i++
+            }
+
+        }
+
+
+
+        try {
+            if (!filePath.exists()) {
+                filePath.createNewFile()
+            }
+            val fileOutputStream = FileOutputStream(filePath)
+            hssfWorkbook.write(fileOutputStream)
+
+            fileOutputStream.flush()
+            fileOutputStream.close()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 
