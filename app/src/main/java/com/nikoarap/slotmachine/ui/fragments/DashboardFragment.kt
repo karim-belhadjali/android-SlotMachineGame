@@ -1,9 +1,13 @@
 package com.nikoarap.slotmachine.ui.fragments
 
-import android.content.Intent
+import android.Manifest
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +25,10 @@ import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import pub.devrel.easypermissions.EasyPermissions.hasPermissions
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 import kotlin.math.absoluteValue
 
@@ -34,7 +42,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var users: List<User>
 
-    private val CSV_HEADER="id, FirstName, LastName, Email, Telephone , BirthDate, BirthPlace"
+    private val CSV_HEADER = "id, FirstName, LastName, Email, Telephone , BirthDate, BirthPlace"
 
     private val viewModel: RegisterViewModel by viewModels()
 
@@ -62,7 +70,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             tv_userCount.text = "Nombre de participants : ${it.absoluteValue.toString()}"
         })
         viewModel.users.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            users=it
+            users = it
         })
 
         btn_saveConfig.setOnClickListener {
@@ -131,11 +139,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
 
         btn_export.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "file/*"
-            startActivityForResult(intent, 111);
-
-            startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
+            createExcel(users)
         }
 
         btn_retour.setOnClickListener {
@@ -148,44 +152,112 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     }
 
     private fun exportCSV() {
+        val path = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        println(path)
 
-     /*   val fileWriter = FileWriter("customer.csv")
-        try {
+    }
 
-            fileWriter.append(CSV_HEADER)
-            fileWriter.append('\n')
+    fun createExcel(users: List<User>) {
 
-            for (user in users) {
-                fileWriter.append(user.id.toString())
-                fileWriter.append(',')
-                fileWriter.append(user.firstName)
-                fileWriter.append(',')
-                fileWriter.append(user.lastName)
-                fileWriter.append(',')
-                fileWriter.append(user.email)
-                fileWriter.append(',')
-                fileWriter.append(user.telephone.toString())
-                fileWriter.append(',')
-                fileWriter.append(user.birthDate)
-                fileWriter.append(',')
-                fileWriter.append(user.birthPlace)
-                fileWriter.append('\n')
+        if (!hasPermissions(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        ) {
+            requestWritePermissions()
+        } else {
+
+            val filePath = File(Environment.getExternalStorageDirectory().toString() + "/Users.xls")
+            val hssfWorkbook = HSSFWorkbook()
+            val hssfSheet = hssfWorkbook.createSheet("Participants sheet")
+            val hssfRow = hssfSheet.createRow(0)
+            val hssfCellFirstName = hssfRow.createCell(0)
+            hssfCellFirstName.setCellValue("Nom")
+
+            val hssfCellLastName = hssfRow.createCell(1)
+            hssfCellLastName.setCellValue("Prénom")
+
+            val hssfCellPhone = hssfRow.createCell(2)
+            hssfCellPhone.setCellValue("Telephone")
+
+            val hssfCellEmail = hssfRow.createCell(3)
+            hssfCellEmail.setCellValue("Email")
+
+            val hssfCellAddress = hssfRow.createCell(4)
+            hssfCellAddress.setCellValue("Adresse")
+
+            val hssfCellPostalCode = hssfRow.createCell(5)
+            hssfCellPostalCode.setCellValue("Code postal")
+
+            val hssfCellBirthDate = hssfRow.createCell(6)
+            hssfCellBirthDate.setCellValue("Date de naissance")
+
+            val hssfCellBirthPlace = hssfRow.createCell(7)
+            hssfCellBirthPlace.setCellValue("Lieu de naissance")
+
+            if (users.isNotEmpty()) {
+
+                for ((i, user: User) in users.withIndex()) {
+
+                    val newRow = hssfSheet.createRow(i)
+                    val newCellFirstName = newRow.createCell(0)
+                    newCellFirstName.setCellValue(user.lastName)
+
+                    val newCellLastName = newRow.createCell(1)
+                    newCellLastName.setCellValue(user.firstName)
+
+                    val newCellPhone = newRow.createCell(2)
+                    newCellPhone.setCellValue(user.telephone.toString())
+
+                    val newCellEmail = newRow.createCell(3)
+                    newCellEmail.setCellValue(user.email)
+
+                    val newCellAddress = newRow.createCell(4)
+                    newCellAddress.setCellValue("Adresse")
+
+                    val newCellPostalCode = newRow.createCell(5)
+                    newCellPostalCode.setCellValue("Code postal")
+
+                    val newCellBirthDate = newRow.createCell(6)
+                    newCellBirthDate.setCellValue(user.birthDate)
+
+                    val newCellBirthPlace = newRow.createCell(7)
+                    newCellBirthPlace.setCellValue(user.birthPlace)
+
+                }
+                println("done")
             }
 
-            println("Write CSV successfully!")
-        } catch (e: Exception) {
-            println("Writing CSV error!")
-            e.printStackTrace()
-        } finally {
+
+
             try {
-                fileWriter!!.flush()
-                fileWriter.close()
-            } catch (e: IOException) {
-                println("Flushing/closing error!")
+                if (!filePath.exists()) {
+                    filePath.createNewFile()
+                }
+                val fileOutputStream = FileOutputStream(filePath)
+                hssfWorkbook.write(fileOutputStream)
+
+                fileOutputStream.flush()
+                fileOutputStream.close()
+
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }*/
+        }
+
+
     }
+
+    private fun requestWritePermissions() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ), PackageManager.PERMISSION_GRANTED
+        )
+    }
+
 
     private fun saveConfig(
         sharedPreferences: SharedPreferences,
