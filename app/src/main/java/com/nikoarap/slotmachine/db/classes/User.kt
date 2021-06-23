@@ -11,9 +11,13 @@ data class User(
     var firstName: String,
     var lastName: String,
     var email: String,
-    var telephone: Long,
+    var telephone: String,
     var birthDate: String,
-    var birthPlace: String
+    var birthPlace: String,
+    var ville: String,
+    var codePostale: String,
+    var residencePlace: String
+
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

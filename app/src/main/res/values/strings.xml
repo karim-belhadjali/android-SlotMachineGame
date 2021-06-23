@@ -82,7 +82,43 @@
     <string name="thank_you">Merci Mohamed pour votre participation./n bonnes vacances</string>
 
     <string name="felicitation">
-Félicitations, vous avez gagné. N"'"hésitez pas de le partager sur les réseaux sociaux avec le hashtag #MoneyGram
+Félicitations
 </string>
+
+    <string-array name="countries">
+        <item>CAD</item>
+        <item>EUR</item>
+        <item>HKD</item>
+        <item>ISK</item>
+        <item>PHP</item>
+        <item>DKK</item>
+        <item>HUF</item>
+        <item>CZK</item>
+        <item>AUD</item>
+        <item>RON</item>
+        <item>SEK</item>
+        <item>IDR</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>RUB</item>
+        <item>HRK</item>
+        <item>JPY</item>
+        <item>THB</item>
+        <item>CHF</item>
+        <item>SGD</item>
+        <item>PLN</item>
+        <item>BGN</item>
+        <item>CNY</item>
+        <item>NOK</item>
+        <item>NZD</item>
+        <item>ZAR</item>
+        <item>USD</item>
+        <item>MXN</item>
+        <item>ILS</item>
+        <item>GBP</item>
+        <item>KRW</item>
+        <item>MYR</item>
+        <item>TND</item>
+    </string-array>
 
 </resources>

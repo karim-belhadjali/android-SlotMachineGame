@@ -19,8 +19,16 @@ import com.nikoarap.slotmachine.other.Constants.KEY_BIG_PRIZE
 import com.nikoarap.slotmachine.other.Constants.KEY_EVENING_HOURS
 import com.nikoarap.slotmachine.other.Constants.KEY_MORNING_HOURS
 import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE
+import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_FIRST
+import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_SECOND
+import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_THIRD
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE
+import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_FIRST
+import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_FOURTH
+import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_SECOND
+import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_THIRD
 import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
+import com.nikoarap.slotmachine.slotImageScroll.EventEnd
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -42,9 +50,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var users: List<User>
+    private lateinit var users: List<User>
 
-    private val CSV_HEADER = "id, FirstName, LastName, Email, Telephone , BirthDate, BirthPlace"
 
     private val viewModel: RegisterViewModel by viewModels()
 
@@ -55,14 +62,26 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
             val bigPrizeWinners = sharedPreferences.getLong(KEY_BIG_PRIZE, 0L)
             val secondPrizeWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE, 0L)
+            val secondPrizeFirstWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_FIRST, 0L)
+            val secondPrizeSecondWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_SECOND, 0L)
+            val secondPrizeThirdWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_THIRD, 0L)
             val thirdPrizeWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE, 0L)
+            val thirdPrizeFirstWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FIRST, 0L)
+            val thirdPrizeSecondWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_SECOND, 0L)
+            val thirdPrizeThirdWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_THIRD, 0L)
+            val thirdPrizeFourthWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FOURTH, 0L)
             val morningHours = sharedPreferences.getLong(KEY_MORNING_HOURS, 0L)
             val eveningHours = sharedPreferences.getLong(KEY_EVENING_HOURS, 0L)
 
 
             tv_bigPrize.setText(bigPrizeWinners.toString())
-            tv_secondPrize.setText(secondPrizeWinners.toString())
-            tv_thirdPrize.setText(thirdPrizeWinners.toString())
+            tv_secondPrize_one.setText(secondPrizeFirstWinners.toString())
+            tv_secondPrize_two.setText(secondPrizeSecondWinners.toString())
+            tv_secondPrize_three.setText(secondPrizeThirdWinners.toString())
+            tv_thirdPrize_one.setText(thirdPrizeFirstWinners.toString())
+            tv_thirdPrize_two.setText(thirdPrizeSecondWinners.toString())
+            tv_thirdPrize_three.setText(thirdPrizeThirdWinners.toString())
+            tv_thirdPrize_four.setText(thirdPrizeFourthWinners.toString())
             tv_halfHours.setText(morningHours.toString())
             tv_secondHalfHours.setText(eveningHours.toString())
 
@@ -79,20 +98,33 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
             if (!firstConfig) {
-                if (tv_bigPrize.text.toString() == "" || tv_secondPrize.text.toString() == "" || tv_thirdPrize.text.toString() == "" || tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == "") {
+                if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_secondPrize_three.text.toString() == "" ||
+                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || tv_thirdPrize_four.text.toString() == "" ||
+                    tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == ""
+                ) {
                     Snackbar.make(requireView(), ENTER_ALL_VALUES, Snackbar.LENGTH_SHORT).show()
                 } else {
                     val bigPrizeWinners = tv_bigPrize.text.toString().toLong()
-                    val secondPrizeWinners = tv_secondPrize.text.toString().toLong()
-                    val thirdPrizeWinners = tv_thirdPrize.text.toString().toLong()
+                    val secondPrizeFirstWinners = tv_secondPrize_one.text.toString().toLong()
+                    val secondPrizeSecondWinners = tv_secondPrize_two.text.toString().toLong()
+                    val secondPrizeThirdWinners = tv_secondPrize_three.text.toString().toLong()
+                    val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
+                    val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
+                    val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
+                    val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
                     val morningHours = tv_halfHours.text.toString().toLong()
                     val eveningHours = tv_secondHalfHours.text.toString().toLong()
 
                     saveConfig(
                         sharedPreferences,
                         bigPrizeWinners,
-                        secondPrizeWinners,
-                        thirdPrizeWinners,
+                        secondPrizeFirstWinners,
+                        secondPrizeSecondWinners,
+                        secondPrizeThirdWinners,
+                        thirdPrizeFirstWinners,
+                        thirdPrizeSecondWinners,
+                        thirdPrizeThirdWinners,
+                        thirdPrizeFourthWinners,
                         morningHours,
                         eveningHours
                     )
@@ -114,16 +146,26 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             } else {
 
                 val bigPrizeWinners = tv_bigPrize.text.toString().toLong()
-                val secondPrizeWinners = tv_secondPrize.text.toString().toLong()
-                val thirdPrizeWinners = tv_thirdPrize.text.toString().toLong()
+                val secondPrizeFirstWinners = tv_secondPrize_one.text.toString().toLong()
+                val secondPrizeSecondWinners = tv_secondPrize_two.text.toString().toLong()
+                val secondPrizeThirdWinners = tv_secondPrize_three.text.toString().toLong()
+                val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
+                val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
+                val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
+                val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
                 val morningHours = tv_halfHours.text.toString().toLong()
                 val eveningHours = tv_secondHalfHours.text.toString().toLong()
 
                 saveConfig(
                     sharedPreferences,
                     bigPrizeWinners,
-                    secondPrizeWinners,
-                    thirdPrizeWinners,
+                    secondPrizeFirstWinners,
+                    secondPrizeSecondWinners,
+                    secondPrizeThirdWinners,
+                    thirdPrizeFirstWinners,
+                    thirdPrizeSecondWinners,
+                    thirdPrizeThirdWinners,
+                    thirdPrizeFourthWinners,
                     morningHours,
                     eveningHours
                 )
@@ -154,9 +196,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     }
 
 
-
     fun createExcel(users: List<User>) {
-        if (!hasPermissions(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (!hasPermissions(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
         ) {
             requestWritePermissions()
         } else {
@@ -190,7 +235,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         hssfCellEmail.setCellValue("Email")
 
         val hssfCellAddress = hssfRow.createCell(4)
-        hssfCellAddress.setCellValue("Adresse")
+        hssfCellAddress.setCellValue("Ville")
 
         val hssfCellPostalCode = hssfRow.createCell(5)
         hssfCellPostalCode.setCellValue("Code postal")
@@ -201,9 +246,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         val hssfCellBirthPlace = hssfRow.createCell(7)
         hssfCellBirthPlace.setCellValue("Lieu de naissance")
 
+        val hssfCellResidencePlace = hssfRow.createCell(8)
+        hssfCellResidencePlace.setCellValue("Pays de résidence")
+
         if (users.isNotEmpty()) {
-            var i=1
-            for ( user: User in users) {
+            var i = 1
+            for (user: User in users) {
 
                 val newRow = hssfSheet.createRow(i)
                 val newCellFirstName = newRow.createCell(0)
@@ -219,16 +267,19 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 newCellEmail.setCellValue(user.email)
 
                 val newCellAddress = newRow.createCell(4)
-                newCellAddress.setCellValue("Adresse")
+                newCellAddress.setCellValue(user.ville)
 
                 val newCellPostalCode = newRow.createCell(5)
-                newCellPostalCode.setCellValue("Code postal")
+                newCellPostalCode.setCellValue(user.codePostale)
 
                 val newCellBirthDate = newRow.createCell(6)
                 newCellBirthDate.setCellValue(user.birthDate)
 
                 val newCellBirthPlace = newRow.createCell(7)
                 newCellBirthPlace.setCellValue(user.birthPlace)
+
+                val newCellResidencePlace = newRow.createCell(8)
+                newCellResidencePlace.setCellValue(user.residencePlace)
                 i++
             }
 
@@ -264,16 +315,32 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private fun saveConfig(
         sharedPreferences: SharedPreferences,
-        bigPrizeWinners: Long,
-        secondPrizeWinners: Long,
-        thirdPrizeWinners: Long,
+        bigPrizeWinners : Long,
+        secondPrizeFirstWinners: Long,
+        secondPrizeSecondWinners: Long,
+        secondPrizeThirdWinners: Long,
+        thirdPrizeFirstWinners: Long,
+        thirdPrizeSecondWinners: Long,
+        thirdPrizeThirdWinners: Long,
+        thirdPrizeFourthWinners: Long,
         morningHours: Long,
         eveningHours: Long
+
     ) {
+        val secondPrizeWinners =secondPrizeFirstWinners+secondPrizeSecondWinners+secondPrizeThirdWinners
+        val thirdPrizeWinners =thirdPrizeFirstWinners+thirdPrizeSecondWinners+thirdPrizeThirdWinners+thirdPrizeFourthWinners
+
         sharedPreferences.edit()
             .putLong(KEY_BIG_PRIZE, bigPrizeWinners)
             .putLong(KEY_SECOND_PRIZE, secondPrizeWinners)
             .putLong(KEY_THIRD_PRIZE, thirdPrizeWinners)
+            .putLong(KEY_SECOND_PRIZE_FIRST, secondPrizeFirstWinners)
+            .putLong(KEY_SECOND_PRIZE_SECOND, secondPrizeSecondWinners)
+            .putLong(KEY_SECOND_PRIZE_THIRD, secondPrizeThirdWinners)
+            .putLong(KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinners)
+            .putLong(KEY_THIRD_PRIZE_SECOND, thirdPrizeSecondWinners)
+            .putLong(KEY_THIRD_PRIZE_THIRD, thirdPrizeThirdWinners)
+            .putLong(KEY_THIRD_PRIZE_FOURTH, thirdPrizeFourthWinners)
             .putLong(KEY_MORNING_HOURS, morningHours)
             .putLong(KEY_EVENING_HOURS, eveningHours)
             .apply()

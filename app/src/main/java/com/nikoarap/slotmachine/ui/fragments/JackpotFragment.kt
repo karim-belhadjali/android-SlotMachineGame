@@ -71,7 +71,8 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
 
     private fun launchTheSlotMachine() {
-        if (checkIfBigPrizeIsAvailable()) {
+        launchWhenAllPrizesAvailable()
+        /*if (checkIfBigPrizeIsAvailable()) {
             if (checkIfSecondPrizeIsAvailable()) {
 
                 if (checkIfThirdPrizeIsAvailable()) {
@@ -106,7 +107,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
             } else {
                 launchWhenOnlyFirstAndThirdPrizeIsNotAvailable()
             }
-        }
+        }*/
 
     }
 
@@ -214,9 +215,12 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     }
 
     private fun launchWhenAllPrizesAvailable() {
-        image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image1.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+        /*image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
         image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-        image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)*/
     }
 
     private fun launchWhenOnlyThirdPrizeIsNotAvailable() {

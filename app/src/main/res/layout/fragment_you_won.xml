@@ -36,21 +36,33 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
-    <TextView
+
+    <LinearLayout
         android:id="@+id/tv_felicitations"
-        android:layout_width="941dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="0sp"
-        android:text="@string/felicitation"
-        android:textAppearance="@style/felicitation"
+        android:background="@drawable/rectangle_5"
+        app:layout_constraintBottom_toTopOf="@+id/img_won"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frame" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/frame" >
 
+        <TextView
+            android:id="@+id/f_licitatio"
+            android:layout_width="263dp"
+            android:layout_height="38dp"
+
+            android:text="@string/felicitation"
+            android:textAppearance="@style/felicitation"
+            android:lineSpacingExtra="0sp"
+            android:gravity="center_horizontal"
+            />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/img_won"
@@ -59,7 +71,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/youwon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +91,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="@+id/guideline19" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"
