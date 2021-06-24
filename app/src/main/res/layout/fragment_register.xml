@@ -139,7 +139,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:hint="Nom">
+                            android:hint="Nom"
+                            app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tv_lastName"
@@ -172,7 +173,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+                            app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tv_email"
@@ -205,7 +207,8 @@
                             android:layout_weight="0.3"
                             android:hint="Code Pays"
                             app:prefixText="+"
-                            tools:layout_editor_absoluteX="10dp">
+                            tools:layout_editor_absoluteX="10dp"
+                            app:endIconMode="clear_text">
 
                             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                                 android:id="@+id/tv_codePays"
@@ -227,6 +230,7 @@
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+                            app:endIconMode="clear_text"
                             >
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -258,7 +262,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="0.5"
-                            android:hint="Date de naissance">
+                            android:hint="Date de naissance"
+                            app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tv_birthDate"
@@ -276,7 +281,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="0.5"
                             android:hint="Lieu de Naissance"
-                            tools:layout_editor_absoluteX="10dp">
+                            tools:layout_editor_absoluteX="10dp"
+                            app:endIconMode="clear_text">
 
                             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                                 android:id="@+id/tv_birthPlace"
@@ -306,7 +312,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="0.5"
-                            android:hint="Ville">
+                            android:hint="Ville"
+                            app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tv_ville"
@@ -323,7 +330,8 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="0.5"
                             android:hint="Pays de résidence"
-                            tools:layout_editor_absoluteX="10dp">
+                            tools:layout_editor_absoluteX="10dp"
+                            app:endIconMode="clear_text">
 
                             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                                 android:id="@+id/tv_paysDeResidence"
@@ -352,7 +360,8 @@
                             android:id="@+id/textInputLayout9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Code postale">
+                            android:hint="Code postale"
+                            app:endIconMode="clear_text">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tv_codePostale"

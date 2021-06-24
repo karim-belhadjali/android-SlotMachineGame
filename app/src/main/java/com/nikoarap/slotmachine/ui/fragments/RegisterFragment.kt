@@ -36,6 +36,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val firstConfig = sharedPreferences.getBoolean(Constants.KEY_TOGGLE_FIRST_TIME, true)
+        if (firstConfig){
+            findNavController().navigate(
+                R.id.action_registerFragment_to_dashboardFragment,
+                savedInstanceState
+            )
+        }
         val countries = arrayOf(
             "Afghanistan",
             "Albania",

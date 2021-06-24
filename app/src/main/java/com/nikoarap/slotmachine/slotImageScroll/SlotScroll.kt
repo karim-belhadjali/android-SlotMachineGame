@@ -82,12 +82,10 @@ class SlotScroll: FrameLayout {
     //!! symbol is for asserting non-null to variables
     private fun setImage(currentImage: ImageView?, value: Int){
         when (value) {
-            Utils.bar -> currentImage!!.setImageResource(R.drawable.bar)
-            Utils.lemon -> currentImage!!.setImageResource(R.drawable.lemon)
-            Utils.orange -> currentImage!!.setImageResource(R.drawable.orange)
-            Utils.seven -> currentImage!!.setImageResource(R.drawable.seven)
-            Utils.triple -> currentImage!!.setImageResource(R.drawable.triple_seven)
-            Utils.watermelon -> currentImage!!.setImageResource(R.drawable.watermelon)
+            Utils.bar -> currentImage!!.setImageResource(R.drawable.smiley)
+            Utils.lemon -> currentImage!!.setImageResource(R.drawable.gift)
+            Utils.orange -> currentImage!!.setImageResource(R.drawable.chaise)
+
         }
 
         currentImage!!.tag = value

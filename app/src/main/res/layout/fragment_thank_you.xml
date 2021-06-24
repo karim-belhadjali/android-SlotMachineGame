@@ -63,7 +63,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline8"
             app:layout_constraintVertical_bias="1.0" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rectangle_4"
             android:layout_width="839dp"
             android:layout_height="237dp"
@@ -71,6 +71,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/rectangle_4"
             android:elevation="24dp"
+            android:gravity=""
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +89,14 @@
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="25sp"
                 android:text="@string/thank_you"
-                android:textAppearance="@style/thank_you" />
+                android:textAppearance="@style/thank_you"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/partnerbg"

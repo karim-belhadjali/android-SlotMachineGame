@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.nikoarap.slotmachine.R
+import com.nikoarap.slotmachine.other.Constants
 import com.nikoarap.slotmachine.other.Constants.KEY_PRIZE
 import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingNumber
 import com.nikoarap.slotmachine.other.JackpotUtility.randomizeWithEliminatingThreeNumber
@@ -34,18 +35,19 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     private var countDown = 0
 
     private var isBiggestPrizeNotWon = MutableLiveData<Boolean>()
-    private val halfWorkHours = 4f
-    private val timeForOneMassage = 15f
-    private var winnersInHalfDay = halfWorkHours * 60f / timeForOneMassage
-    private var secondPrizeQuantity = 1f
-    private var thirdPrizeQuantity = 1f
+    private var halfWorkHours = 0L
+    private val timeForOneMassage = 15L
+    private var winnersInHalfDay = 0L
+    private var bigPrizeQuantity = 0L
+    private var secondPrizeQuantity = 0L
+    private var thirdPrizeQuantity = 0L
 
-    //var winnersEveryHour = winnersInHalfDay / halfWorkHours
-    private var winnersEveryHour = 5
+    var winnersEveryHour = 0L
+
     private var winnersInHour = 0
 
-    //var timeBetweenWinners = winnersEveryHour / 60f
-    private var timeBetweenWinners = 1f
+    var timeBetweenWinners = winnersEveryHour / 60f
+    //private var timeBetweenWinners = 1f
 
     private var lastHourTimeStamp = Instant.now()
     private var lastQuarterHourTimeStamp = Instant.now()
@@ -54,7 +56,12 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isBiggestPrizeNotWon.postValue(true)
-
+        halfWorkHours = sharedPreferences.getLong(Constants.KEY_MORNING_HOURS, 0L)
+        winnersInHalfDay = halfWorkHours * 60L / timeForOneMassage
+        bigPrizeQuantity = sharedPreferences.getLong(Constants.KEY_BIG_PRIZE, 0L)
+        secondPrizeQuantity = sharedPreferences.getLong(Constants.KEY_SECOND_PRIZE, 0L)
+        thirdPrizeQuantity = sharedPreferences.getLong(Constants.KEY_THIRD_PRIZE, 0L)
+        winnersEveryHour = winnersInHalfDay / halfWorkHours
         image1.setEventEnd(this)
         image2.setEventEnd(this)
         image3.setEventEnd(this)
@@ -63,8 +70,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
         leverUp.setOnClickListener {
 
-                leverUp.visibility = View.GONE
-                launchTheSlotMachine()
+            leverUp.visibility = View.GONE
+            jackpot_1.setBackgroundResource(R.drawable.jackpot_down)
+            launchTheSlotMachine()
 
         }
     }
@@ -72,7 +80,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
     private fun launchTheSlotMachine() {
         launchWhenAllPrizesAvailable()
-        /*if (checkIfBigPrizeIsAvailable()) {
+       /* if (checkIfBigPrizeIsAvailable()) {
             if (checkIfSecondPrizeIsAvailable()) {
 
                 if (checkIfThirdPrizeIsAvailable()) {
@@ -120,7 +128,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     private fun biggestPrizeCombination(timeIsNow: Boolean) {
         if (!timeIsNow) {
             GlobalScope.launch(Dispatchers.IO) {
-                while (winnersInHalfDay != 0f) {
+                while (winnersInHalfDay != 0L) {
                     val currentHourTimeStamp = Instant.now()
                     val currentQuarterHourTimeStamp = Instant.now()
                     val hour: Duration = Duration.between(lastHourTimeStamp, currentHourTimeStamp)
@@ -129,13 +137,13 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                     val minutesSince = minutes.toMinutes()
                     val hourSinceWin = hour.toHours()
 
-                    if (hourSinceWin >= 1 && winnersInHalfDay != 0f) {
+                    if (hourSinceWin >= 1 && winnersInHalfDay != 0L) {
                         lastHourTimeStamp = Instant.now()
                         isBiggestPrizeNotWon.value = true// print after delay
                         println("TIME Hour")
                         winnersInHour = 0
 
-                    } else if (minutesSince >= timeBetweenWinners && winnersInHalfDay != 0f && winnersInHour < winnersEveryHour) {
+                    } else if (minutesSince >= timeBetweenWinners && winnersInHalfDay != 0L && winnersInHour < winnersEveryHour) {
                         lastQuarterHourTimeStamp = Instant.now()
                         isBiggestPrizeNotWon.postValue(true)// print after delay
                         winnersInHalfDay -= 1
@@ -153,7 +161,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
             countDown++
         } else {
             leverUp.visibility = View.VISIBLE
-            // layout_bar.setBackgroundResource(R.drawable.background1)
+            jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
             countDown = 0
 
             if (image1.value == image2.value && image2.value == image3.value) {
@@ -161,13 +169,23 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 when (image1.value) {
                     2 -> {
                         isBiggestPrizeNotWon.postValue(false)
+                        bigPrizeQuantity -= 1
+                        sharedPreferences.edit()
+                            .putLong(Constants.KEY_BIG_PRIZE, bigPrizeQuantity)
+                            .apply()
                     }
                     1 -> {
                         secondPrizeQuantity -= 1
+                        sharedPreferences.edit()
+                            .putLong(Constants.KEY_SECOND_PRIZE, secondPrizeQuantity)
+                            .apply()
 
                     }
                     0 -> {
                         thirdPrizeQuantity -= 1
+                        sharedPreferences.edit()
+                            .putLong(Constants.KEY_THIRD_PRIZE, thirdPrizeQuantity)
+                            .apply()
                     }
                 }
 
@@ -192,6 +210,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 }
 
             } else {
+
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(2000)
                     findNavController().navigate(
@@ -203,22 +222,22 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     }
 
     private fun checkIfBigPrizeIsAvailable(): Boolean {
-        return isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0f
+        return isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0L && bigPrizeQuantity != 0L
     }
 
     private fun checkIfSecondPrizeIsAvailable(): Boolean {
-        return secondPrizeQuantity != 0f
+        return secondPrizeQuantity != 0L
     }
 
     private fun checkIfThirdPrizeIsAvailable(): Boolean {
-        return thirdPrizeQuantity != 0f
+        return thirdPrizeQuantity != 0L
     }
 
     private fun launchWhenAllPrizesAvailable() {
-        image1.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
-        image2.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
-        image3.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
-        /*image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image1.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+        image2.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+        image3.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+       /*image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
         image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
         image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)*/
     }

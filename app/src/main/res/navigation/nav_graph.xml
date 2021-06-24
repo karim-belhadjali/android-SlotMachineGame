@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_jackpot" >
         <action
             android:id="@+id/action_jackpotFragment_to_youWonFragment"
-            app:destination="@id/youWonFragment" />
+            app:destination="@id/youWonFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_jackpotFragment_to_thankYouFragment"
-            app:destination="@id/thankYouFragment" />
+            app:destination="@id/thankYouFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -23,10 +27,14 @@
         android:label="DashboardFragment" >
         <action
             android:id="@+id/action_dashboardFragment_to_jackpotFragment"
-            app:destination="@id/jackpotFragment" />
+            app:destination="@id/jackpotFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_dashboardFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -34,10 +42,14 @@
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_jackpotFragment"
-            app:destination="@id/jackpotFragment" />
+            app:destination="@id/jackpotFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_registerFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/thankYouFragment"
@@ -46,7 +58,9 @@
         tools:layout="@layout/fragment_thank_you" >
         <action
             android:id="@+id/action_thankYouFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/youWonFragment"
@@ -54,7 +68,9 @@
         android:label="YouWonFragment" >
         <action
             android:id="@+id/action_youWonFragment_to_thankYouFragment"
-            app:destination="@id/thankYouFragment" />
+            app:destination="@id/thankYouFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/testFragment"

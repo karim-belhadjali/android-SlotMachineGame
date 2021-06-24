@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.nikoarap.slotmachine.R
@@ -53,12 +54,12 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         println(prizenumber)
 
         when (prizenumber) {
-            Utils.orange -> prizeOneWon()
-            Utils.lemon -> prizeTwoWon(
-                secondPrizeFirstWinners,
-                secondPrizeSecondWinners,
-                secondPrizeThirdWinners
-            )
+            Utils.orange -> {
+                prizeOneWon()
+            }
+            Utils.lemon -> {
+                prizeTwoWon(secondPrizeFirstWinners, secondPrizeSecondWinners, secondPrizeThirdWinners)
+            }
             Utils.bar -> prizeThreeWon(
                 thirdPrizeFirstWinners,
                 thirdPrizeSecondWinners,
@@ -77,6 +78,8 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
 
 
     }
+
+
 
     private fun prizeThreeWon(
         thirdPrizeFirstWinners: Long,
@@ -110,28 +113,28 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomNumber) {
             Utils.bar -> {
-                img_won!!.setImageResource(R.drawable.seven)
+                img_won!!.setImageResource(R.drawable.smiley)
                 val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
                     .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.bar)
+                img_won!!.setImageResource(R.drawable.smiley)
                 val thirdPrizeSecondWinnerss = thirdPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_SECOND, thirdPrizeSecondWinnerss)
                     .apply()
             }
             Utils.orange -> {
-                img_won!!.setImageResource(R.drawable.lemon)
+                img_won!!.setImageResource(R.drawable.smiley)
                 val thirdPrizeThirdWinnerss = thirdPrizeThirdWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_THIRD, thirdPrizeThirdWinnerss)
                     .apply()
             }
             Utils.seven -> {
-                img_won!!.setImageResource(R.drawable.watermelon)
+                img_won!!.setImageResource(R.drawable.smiley)
                 val thirdPrizeFourthWinnerss = thirdPrizeFourthWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_FOURTH, thirdPrizeFourthWinnerss)
@@ -170,21 +173,21 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomnumber) {
             Utils.bar -> {
-                img_won!!.setImageResource(R.drawable.seven)
+                img_won!!.setImageResource(R.drawable.giftbox)
                 val secondPrizeFirstWinnerss = secondPrizeFirstWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_FIRST, secondPrizeFirstWinnerss)
                     .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.bar)
+                img_won!!.setImageResource(R.drawable.giftbox)
                 val secondPrizeSecondWinnerss = secondPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_SECOND, secondPrizeSecondWinnerss)
                     .apply()
             }
             Utils.orange -> {
-                img_won!!.setImageResource(R.drawable.lemon)
+                img_won!!.setImageResource(R.drawable.giftbox)
                 val secondPrizeThirdWinnerss = secondPrizeThirdWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_THIRD, secondPrizeThirdWinnerss)

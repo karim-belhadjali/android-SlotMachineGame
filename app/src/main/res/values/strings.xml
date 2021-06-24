@@ -70,7 +70,6 @@
     <string name="login">Login</string>
     <string name="image">image</string>
     <string name="score_text">My Score</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="label">Suivant</string>
@@ -79,10 +78,14 @@
     <string name="title_box_conf1">Enregistrer le nombre de cadeaux</string>
     <string name="title_box_conf2_1">Heures De Travail Matin</string>
     <string name="title_box_conf2_2">Heures De Travail Après Midi</string>
-    <string name="thank_you">Merci Mohamed pour votre participation./n bonnes vacances</string>
+    <string name="thank_you">Nous vous souhaitons une bonne travers à bord du GNV</string>
 
-    <string name="felicitation">
-Félicitations
+    <string name="felicitation">Félicitations
+</string>
+
+    <string name="des_millier">
+
+Des milliers de prix à gagner
 </string>
 
     <string-array name="countries">
@@ -120,5 +123,8 @@ Félicitations
         <item>MYR</item>
         <item>TND</item>
     </string-array>
+    <string name="title_activity_splash_screen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
