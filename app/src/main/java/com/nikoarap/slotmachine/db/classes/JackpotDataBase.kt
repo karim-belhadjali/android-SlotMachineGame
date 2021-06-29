@@ -6,7 +6,7 @@ import com.nikoarap.slotmachine.db.dao.JackpotDao
 
 @Database(
     entities = [User::class],
-    version = 3
+    version = 4
 )
 abstract class JackpotDataBase : RoomDatabase() {
 

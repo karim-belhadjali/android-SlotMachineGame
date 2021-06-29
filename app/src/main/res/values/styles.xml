@@ -64,6 +64,18 @@
 
     </style>
 
+    <style name="j_accepte_d">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #000000
+        </item>
+
+    </style>
+
     <style name="des_millier">
 
         <item name="android:textSize">

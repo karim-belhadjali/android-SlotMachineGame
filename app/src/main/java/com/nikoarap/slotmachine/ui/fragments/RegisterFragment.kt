@@ -386,7 +386,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                                 + "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" + ")+"
                     )
                 if (!adressPattern.matcher(s).matches()) {
-                    tv_email.error = "valid email is required"
+                    textInputLayout3.error = "valid email is required"
                     textInputLayout3.isErrorEnabled = true
                 } else {
                     textInputLayout3.isErrorEnabled = false
@@ -428,7 +428,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 val userVille=tv_ville.text.toString()
                 val userCodePostale=tv_codePostale.text.toString()
                 val userResdiencePlace=tv_paysDeResidence.text.toString()
-                user=User(userFirstName,userLastName,userEmail,userPhone,userBirthDate,userBirthPlace,userVille,userCodePostale,userResdiencePlace)
+                val acceptedPlans=cb_accepte.isChecked
+                user=User(userFirstName,userLastName,userEmail,userPhone,userBirthDate,userBirthPlace,userVille,userCodePostale,userResdiencePlace,acceptedPlans)
 
                 saveUser(user)
 

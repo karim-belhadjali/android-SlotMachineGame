@@ -24,6 +24,8 @@ object Constants {
     const val KEY_EVENING_HOURS="KEY_EVENING_HOURS"
     const val KEY_NEW_USER ="KEY_NEW_USER"
     const val KEY_NAME="KEY_NAME"
+    const val KEY_NOT_WON="KEY_NOT_WON"
+    const val KEY_WIN_AFTER="KEY_WIN_AFTER"
     const val KEY_Email="KEY_Email"
     const val KEY_PHONE="KEY_PHONE"
     const val KEY_PRIZE="KEY_PRIZE"

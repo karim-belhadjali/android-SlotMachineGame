@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SlotMachine</string>
+    <string name="app_name">MoneyGram x GNV</string>
 
     <!-- Intent extras -->
     <string name="auth_token">auth_token</string>
@@ -78,14 +78,19 @@
     <string name="title_box_conf1">Enregistrer le nombre de cadeaux</string>
     <string name="title_box_conf2_1">Heures De Travail Matin</string>
     <string name="title_box_conf2_2">Heures De Travail Après Midi</string>
-    <string name="thank_you">Nous vous souhaitons une bonne travers à bord du GNV</string>
+    <string name="thank_you">Nous vous souhaitons une bonne traversée à bord du GNV</string>
 
-    <string name="felicitation">Félicitations
+    <string name="felicitation">FÉLICITATIONS
 </string>
 
     <string name="des_millier">
 
 Des milliers de prix à gagner
+</string>
+
+    <string name="j_accepte_d">
+
+J\'accepte de recevoir tous les bons plans réductions et communication de Moneygram.
 </string>
 
     <string-array name="countries">

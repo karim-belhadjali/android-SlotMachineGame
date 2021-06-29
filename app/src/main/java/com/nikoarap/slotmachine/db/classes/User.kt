@@ -16,7 +16,8 @@ data class User(
     var birthPlace: String,
     var ville: String,
     var codePostale: String,
-    var residencePlace: String
+    var residencePlace: String,
+    var acceptedPlans:Boolean
 
 ) {
     @PrimaryKey(autoGenerate = true)

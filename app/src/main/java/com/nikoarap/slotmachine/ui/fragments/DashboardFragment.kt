@@ -28,6 +28,7 @@ import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_FOURTH
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_SECOND
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_THIRD
 import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
+import com.nikoarap.slotmachine.other.Constants.KEY_WIN_AFTER
 import com.nikoarap.slotmachine.slotImageScroll.EventEnd
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,7 +78,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             tv_bigPrize.setText(bigPrizeWinners.toString())
             tv_secondPrize_one.setText(secondPrizeFirstWinners.toString())
             tv_secondPrize_two.setText(secondPrizeSecondWinners.toString())
-            tv_secondPrize_three.setText(secondPrizeThirdWinners.toString())
             tv_thirdPrize_one.setText(thirdPrizeFirstWinners.toString())
             tv_thirdPrize_two.setText(thirdPrizeSecondWinners.toString())
             tv_thirdPrize_three.setText(thirdPrizeThirdWinners.toString())
@@ -98,7 +98,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
             if (!firstConfig) {
-                if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_secondPrize_three.text.toString() == "" ||
+                if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_playersWinAfter.text.toString() == "" ||
                     tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || tv_thirdPrize_four.text.toString() == "" ||
                     tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == ""
                 ) {
@@ -107,11 +107,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                     val bigPrizeWinners = tv_bigPrize.text.toString().toLong()
                     val secondPrizeFirstWinners = tv_secondPrize_one.text.toString().toLong()
                     val secondPrizeSecondWinners = tv_secondPrize_two.text.toString().toLong()
-                    val secondPrizeThirdWinners = tv_secondPrize_three.text.toString().toLong()
                     val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
                     val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
                     val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
                     val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    val playerswinAfter = tv_playersWinAfter.text.toString().toLong()
                     val morningHours = tv_halfHours.text.toString().toLong()
                     val eveningHours = tv_secondHalfHours.text.toString().toLong()
 
@@ -120,7 +120,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                         bigPrizeWinners,
                         secondPrizeFirstWinners,
                         secondPrizeSecondWinners,
-                        secondPrizeThirdWinners,
+                        playerswinAfter,
                         thirdPrizeFirstWinners,
                         thirdPrizeSecondWinners,
                         thirdPrizeThirdWinners,
@@ -144,40 +144,46 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
 
             } else {
+                if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_playersWinAfter.text.toString() == "" ||
+                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || tv_thirdPrize_four.text.toString() == "" ||
+                    tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == ""
+                ) {
+                    Snackbar.make(requireView(), ENTER_ALL_VALUES, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    val bigPrizeWinners = tv_bigPrize.text.toString().toLong()
+                    val secondPrizeFirstWinners = tv_secondPrize_one.text.toString().toLong()
+                    val secondPrizeSecondWinners = tv_secondPrize_two.text.toString().toLong()
+                    val playerswinAfter = tv_playersWinAfter.text.toString().toLong()
+                    val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
+                    val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
+                    val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
+                    val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    val morningHours = tv_halfHours.text.toString().toLong()
+                    val eveningHours = tv_secondHalfHours.text.toString().toLong()
 
-                val bigPrizeWinners = tv_bigPrize.text.toString().toLong()
-                val secondPrizeFirstWinners = tv_secondPrize_one.text.toString().toLong()
-                val secondPrizeSecondWinners = tv_secondPrize_two.text.toString().toLong()
-                val secondPrizeThirdWinners = tv_secondPrize_three.text.toString().toLong()
-                val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
-                val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
-                val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
-                val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
-                val morningHours = tv_halfHours.text.toString().toLong()
-                val eveningHours = tv_secondHalfHours.text.toString().toLong()
+                    saveConfig(
+                        sharedPreferences,
+                        bigPrizeWinners,
+                        secondPrizeFirstWinners,
+                        secondPrizeSecondWinners,
+                        playerswinAfter,
+                        thirdPrizeFirstWinners,
+                        thirdPrizeSecondWinners,
+                        thirdPrizeThirdWinners,
+                        thirdPrizeFourthWinners,
+                        morningHours,
+                        eveningHours
+                    )
 
-                saveConfig(
-                    sharedPreferences,
-                    bigPrizeWinners,
-                    secondPrizeFirstWinners,
-                    secondPrizeSecondWinners,
-                    secondPrizeThirdWinners,
-                    thirdPrizeFirstWinners,
-                    thirdPrizeSecondWinners,
-                    thirdPrizeThirdWinners,
-                    thirdPrizeFourthWinners,
-                    morningHours,
-                    eveningHours
-                )
+                    Snackbar.make(requireView(), CHANGES_MADE_SUCCESSFULLY, Snackbar.LENGTH_SHORT)
+                        .show()
+                    sharedPreferences.edit().putBoolean(KEY_TOGGLE_FIRST_TIME, false).apply()
+                    findNavController().navigate(
+                        R.id.action_dashboardFragment_to_registerFragment,
+                        savedInstanceState
+                    )
 
-                Snackbar.make(requireView(), CHANGES_MADE_SUCCESSFULLY, Snackbar.LENGTH_SHORT)
-                    .show()
-                sharedPreferences.edit().putBoolean(KEY_TOGGLE_FIRST_TIME, false).apply()
-                findNavController().navigate(
-                    R.id.action_dashboardFragment_to_registerFragment,
-                    savedInstanceState
-                )
-
+                }
             }
 
         }
@@ -249,6 +255,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         val hssfCellResidencePlace = hssfRow.createCell(8)
         hssfCellResidencePlace.setCellValue("Pays de résidence")
 
+        val hssfCellAccpeted = hssfRow.createCell(8)
+        hssfCellAccpeted.setCellValue("Plans réductions et communications")
+
         if (users.isNotEmpty()) {
             var i = 1
             for (user: User in users) {
@@ -280,6 +289,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
                 val newCellResidencePlace = newRow.createCell(8)
                 newCellResidencePlace.setCellValue(user.residencePlace)
+
+                val newCellaccepted = newRow.createCell(9)
+                newCellaccepted.setCellValue(user.acceptedPlans)
                 i++
             }
 
@@ -318,7 +330,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         bigPrizeWinners : Long,
         secondPrizeFirstWinners: Long,
         secondPrizeSecondWinners: Long,
-        secondPrizeThirdWinners: Long,
+        playerswinAfter: Long,
         thirdPrizeFirstWinners: Long,
         thirdPrizeSecondWinners: Long,
         thirdPrizeThirdWinners: Long,
@@ -327,7 +339,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         eveningHours: Long
 
     ) {
-        val secondPrizeWinners =secondPrizeFirstWinners+secondPrizeSecondWinners+secondPrizeThirdWinners
+        val secondPrizeWinners =secondPrizeFirstWinners+secondPrizeSecondWinners
         val thirdPrizeWinners =thirdPrizeFirstWinners+thirdPrizeSecondWinners+thirdPrizeThirdWinners+thirdPrizeFourthWinners
 
         sharedPreferences.edit()
@@ -336,7 +348,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             .putLong(KEY_THIRD_PRIZE, thirdPrizeWinners)
             .putLong(KEY_SECOND_PRIZE_FIRST, secondPrizeFirstWinners)
             .putLong(KEY_SECOND_PRIZE_SECOND, secondPrizeSecondWinners)
-            .putLong(KEY_SECOND_PRIZE_THIRD, secondPrizeThirdWinners)
+            .putLong(KEY_WIN_AFTER, playerswinAfter)
             .putLong(KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinners)
             .putLong(KEY_THIRD_PRIZE_SECOND, thirdPrizeSecondWinners)
             .putLong(KEY_THIRD_PRIZE_THIRD, thirdPrizeThirdWinners)

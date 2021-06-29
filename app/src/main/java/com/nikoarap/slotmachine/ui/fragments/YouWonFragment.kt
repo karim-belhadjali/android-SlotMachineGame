@@ -1,5 +1,8 @@
 package com.nikoarap.slotmachine.ui.fragments
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.animation.ValueAnimator
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -51,7 +54,10 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         val thirdPrizeFourthWinners =
             sharedPreferences.getLong(Constants.KEY_THIRD_PRIZE_FOURTH, 0L)
 
-        println(prizenumber)
+
+        sharedPreferences.edit()
+            .putLong(Constants.KEY_SECOND_PRIZE_THIRD, 0L)
+            .apply()
 
         when (prizenumber) {
             Utils.orange -> {
@@ -68,6 +74,15 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
             )
 
         }
+        val scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+            img_won,
+            PropertyValuesHolder.ofFloat("scaleX", 0.5f),
+            PropertyValuesHolder.ofFloat("scaleY", 0.5f)
+        )
+        scaleDown.duration = 2000
+        scaleDown.repeatMode = ValueAnimator.REVERSE
+        scaleDown.repeatCount = ValueAnimator.INFINITE
+        scaleDown.start()
 
         GlobalScope.launch(Dispatchers.IO) {
             delay(7000)
@@ -113,28 +128,29 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomNumber) {
             Utils.bar -> {
-                img_won!!.setImageResource(R.drawable.smiley)
-                val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
-                sharedPreferences.edit()
-                    .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
-                    .apply()
+
+                    img_won!!.setImageResource(R.drawable.casquette)
+                    val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
+                    sharedPreferences.edit()
+                        .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
+                        .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.smiley)
+                img_won!!.setImageResource(R.drawable.mdhalla)
                 val thirdPrizeSecondWinnerss = thirdPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_SECOND, thirdPrizeSecondWinnerss)
                     .apply()
             }
             Utils.orange -> {
-                img_won!!.setImageResource(R.drawable.smiley)
+                img_won!!.setImageResource(R.drawable.koura)
                 val thirdPrizeThirdWinnerss = thirdPrizeThirdWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_THIRD, thirdPrizeThirdWinnerss)
                     .apply()
             }
             Utils.seven -> {
-                img_won!!.setImageResource(R.drawable.smiley)
+                img_won!!.setImageResource(R.drawable.ri7a)
                 val thirdPrizeFourthWinnerss = thirdPrizeFourthWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_FOURTH, thirdPrizeFourthWinnerss)
@@ -173,21 +189,21 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomnumber) {
             Utils.bar -> {
-                img_won!!.setImageResource(R.drawable.giftbox)
+                img_won!!.setImageResource(R.drawable.parasol)
                 val secondPrizeFirstWinnerss = secondPrizeFirstWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_FIRST, secondPrizeFirstWinnerss)
                     .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.giftbox)
+                img_won!!.setImageResource(R.drawable.car)
                 val secondPrizeSecondWinnerss = secondPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_SECOND, secondPrizeSecondWinnerss)
                     .apply()
             }
             Utils.orange -> {
-                img_won!!.setImageResource(R.drawable.giftbox)
+                img_won!!.setImageResource(R.drawable.mouchoir)
                 val secondPrizeThirdWinnerss = secondPrizeThirdWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_THIRD, secondPrizeThirdWinnerss)
@@ -303,6 +319,6 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     }
 
     private fun prizeOneWon() {
-        img_won!!.setImageResource(R.drawable.youwon)
+        img_won!!.setImageResource(R.drawable.massage)
     }
 }

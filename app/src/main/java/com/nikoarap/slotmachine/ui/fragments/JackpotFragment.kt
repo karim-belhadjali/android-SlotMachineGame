@@ -41,6 +41,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     private var bigPrizeQuantity = 0L
     private var secondPrizeQuantity = 0L
     private var thirdPrizeQuantity = 0L
+    private var playersWinAfter=0L
+    private var playersNotWon=0L
+
 
     var winnersEveryHour = 0L
 
@@ -62,6 +65,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
         secondPrizeQuantity = sharedPreferences.getLong(Constants.KEY_SECOND_PRIZE, 0L)
         thirdPrizeQuantity = sharedPreferences.getLong(Constants.KEY_THIRD_PRIZE, 0L)
         winnersEveryHour = winnersInHalfDay / halfWorkHours
+        playersWinAfter = sharedPreferences.getLong(Constants.KEY_WIN_AFTER, 0L)
+        playersNotWon = sharedPreferences.getLong(Constants.KEY_NOT_WON, 0L)
+
         image1.setEventEnd(this)
         image2.setEventEnd(this)
         image3.setEventEnd(this)
@@ -79,43 +85,74 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
 
     private fun launchTheSlotMachine() {
-        launchWhenAllPrizesAvailable()
-       /* if (checkIfBigPrizeIsAvailable()) {
-            if (checkIfSecondPrizeIsAvailable()) {
-
-                if (checkIfThirdPrizeIsAvailable()) {
-
-                    launchWhenAllPrizesAvailable()
-                } else {
-                    launchWhenOnlyThirdPrizeIsNotAvailable()
-                }
-
-            } else {
-                if (checkIfThirdPrizeIsAvailable()) {
-
-                    launchWhenOnlySecondPrizeIsNotAvailable()
-                } else {
-                    launchWhenThirdAndSecondPrizeIsNotAvailable()
-                }
-            }
-            println("${isBiggestPrizeNotWon.value}")
-        } else if (!checkIfSecondPrizeIsAvailable()) {
-
-            if (checkIfThirdPrizeIsAvailable()) {
-
-                launchWhenFirstAndSecondPrizeIsNotAvailable()
-            } else {
+        if(playersNotWon==playersWinAfter){
+            if (checkIfBigPrizeIsAvailable()){
+                image1.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+                image2.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+                image3.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
+                playersNotWon=0L
+                sharedPreferences.edit()
+                    .putLong(Constants.KEY_NOT_WON, playersNotWon)
+                    .apply()
+            }else if (checkIfSecondPrizeIsAvailable()){
+                image1.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+                image2.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+                image3.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
+                playersNotWon=0L
+                sharedPreferences.edit()
+                    .putLong(Constants.KEY_NOT_WON, playersNotWon)
+                    .apply()
+            }else if (checkIfThirdPrizeIsAvailable()){
+                image1.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
+                image2.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
+                image3.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
+                playersNotWon=0L
+                sharedPreferences.edit()
+                    .putLong(Constants.KEY_NOT_WON, playersNotWon)
+                    .apply()
+            }else{
                 launchWhenNoPrizeIsAvailable()
             }
-        } else if (checkIfSecondPrizeIsAvailable()) {
+        }else {
 
-            if (checkIfThirdPrizeIsAvailable()) {
 
-                launchWhenOnlyFirstPrizeIsNotAvailable()
-            } else {
-                launchWhenOnlyFirstAndThirdPrizeIsNotAvailable()
+            if (checkIfBigPrizeIsAvailable()) {
+                if (checkIfSecondPrizeIsAvailable()) {
+
+                    if (checkIfThirdPrizeIsAvailable()) {
+
+                        launchWhenAllPrizesAvailable()
+                    } else {
+                        launchWhenOnlyThirdPrizeIsNotAvailable()
+                    }
+
+                } else {
+                    if (checkIfThirdPrizeIsAvailable()) {
+
+                        launchWhenOnlySecondPrizeIsNotAvailable()
+                    } else {
+                        launchWhenThirdAndSecondPrizeIsNotAvailable()
+                    }
+                }
+                println("${isBiggestPrizeNotWon.value}")
+            } else if (!checkIfSecondPrizeIsAvailable()) {
+
+                if (checkIfThirdPrizeIsAvailable()) {
+
+                    launchWhenFirstAndSecondPrizeIsNotAvailable()
+                } else {
+                    launchWhenNoPrizeIsAvailable()
+                }
+            } else if (checkIfSecondPrizeIsAvailable()) {
+
+                if (checkIfThirdPrizeIsAvailable()) {
+
+                    launchWhenOnlyFirstPrizeIsNotAvailable()
+                } else {
+                    launchWhenOnlyFirstAndThirdPrizeIsNotAvailable()
+                }
             }
-        }*/
+        }
 
     }
 
@@ -189,8 +226,11 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                     }
                 }
 
+                playersNotWon=0L
+
                 sharedPreferences.edit()
                     .putInt(KEY_PRIZE, image1.value)
+                    .putLong(Constants.KEY_NOT_WON, playersNotWon)
                     .apply()
 
                 GlobalScope.launch(Dispatchers.IO) {
@@ -200,16 +240,11 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                     )
                 }
 
-            } else if (image1.value == image2.value || image2.value == image3.value || image1.value == image3.value) {
-
-                GlobalScope.launch(Dispatchers.IO) {
-                    delay(2000)
-                    findNavController().navigate(
-                        R.id.action_jackpotFragment_to_thankYouFragment
-                    )
-                }
-
-            } else {
+            }  else {
+                playersNotWon+=1L
+                sharedPreferences.edit()
+                    .putLong(Constants.KEY_NOT_WON, playersNotWon)
+                    .apply()
 
                 GlobalScope.launch(Dispatchers.IO) {
                     delay(2000)
@@ -234,12 +269,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     }
 
     private fun launchWhenAllPrizesAvailable() {
-        image1.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
-        image2.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
-        image3.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
-       /*image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
+        image1.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
         image2.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
-        image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)*/
+        image3.setRandomValue(Random.nextInt(3), Random.nextInt(15 - 5 + 1) + 5)
     }
 
     private fun launchWhenOnlyThirdPrizeIsNotAvailable() {
