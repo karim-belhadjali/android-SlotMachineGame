@@ -65,7 +65,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             val secondPrizeWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE, 0L)
             val secondPrizeFirstWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_FIRST, 0L)
             val secondPrizeSecondWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_SECOND, 0L)
-            val secondPrizeThirdWinners = sharedPreferences.getLong(KEY_SECOND_PRIZE_THIRD, 0L)
+            val playerswinAfterr = sharedPreferences.getLong(KEY_WIN_AFTER, 0L)
             val thirdPrizeWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE, 0L)
             val thirdPrizeFirstWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FIRST, 0L)
             val thirdPrizeSecondWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_SECOND, 0L)
@@ -76,6 +76,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
             tv_bigPrize.setText(bigPrizeWinners.toString())
+            tv_playersWinAfter.setText(playerswinAfterr.toString())
             tv_secondPrize_one.setText(secondPrizeFirstWinners.toString())
             tv_secondPrize_two.setText(secondPrizeSecondWinners.toString())
             tv_thirdPrize_one.setText(thirdPrizeFirstWinners.toString())
@@ -255,7 +256,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         val hssfCellResidencePlace = hssfRow.createCell(8)
         hssfCellResidencePlace.setCellValue("Pays de résidence")
 
-        val hssfCellAccpeted = hssfRow.createCell(8)
+        val hssfCellAccpeted = hssfRow.createCell(9)
         hssfCellAccpeted.setCellValue("Plans réductions et communications")
 
         if (users.isNotEmpty()) {

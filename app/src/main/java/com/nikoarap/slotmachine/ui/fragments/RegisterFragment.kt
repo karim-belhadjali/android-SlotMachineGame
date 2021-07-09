@@ -13,10 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.nikoarap.slotmachine.R
 import com.nikoarap.slotmachine.db.classes.User
 import com.nikoarap.slotmachine.other.Constants
-import com.nikoarap.slotmachine.other.Constants.KEY_Email
-import com.nikoarap.slotmachine.other.Constants.KEY_NAME
+
 import com.nikoarap.slotmachine.other.Constants.KEY_NEW_USER
-import com.nikoarap.slotmachine.other.Constants.KEY_PHONE
+
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -37,7 +36,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val firstConfig = sharedPreferences.getBoolean(Constants.KEY_TOGGLE_FIRST_TIME, true)
-        if (firstConfig){
+        if (firstConfig) {
             findNavController().navigate(
                 R.id.action_registerFragment_to_dashboardFragment,
                 savedInstanceState
@@ -422,20 +421,47 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 val userFirstName = tv_firstName.text.toString()
                 val userLastName = tv_lastName.text.toString()
                 val userEmail = tv_email.text.toString()
-                val userPhone = tv_codePays.text.toString()+" "+tv_phone.text.toString()
+                val userPhone = tv_codePays.text.toString() + " " + tv_phone.text.toString()
                 val userBirthDate = tv_birthDate.text.toString()
                 val userBirthPlace = tv_birthPlace.text.toString()
-                val userVille=tv_ville.text.toString()
-                val userCodePostale=tv_codePostale.text.toString()
-                val userResdiencePlace=tv_paysDeResidence.text.toString()
-                val acceptedPlans=cb_accepte.isChecked
-                user=User(userFirstName,userLastName,userEmail,userPhone,userBirthDate,userBirthPlace,userVille,userCodePostale,userResdiencePlace,acceptedPlans)
+                val userVille = tv_ville.text.toString()
+                val userCodePostale = tv_codePostale.text.toString()
+                val userResdiencePlace = tv_paysDeResidence.text.toString()
+                var acceptedPlans = "Not Accepted"
+
+                if (cb_parEmail.isChecked) {
+                    acceptedPlans = "Par e-mail"
+                } else if (cb_parSMS.isChecked) {
+                    acceptedPlans = "Par SMS"
+                }
+                if (cb_parEmail.isChecked && cb_parSMS.isChecked) {
+                    acceptedPlans ="Par e-mail et Par SMS"
+                }
+                user = User(
+                    userFirstName,
+                    userLastName,
+                    userEmail,
+                    userPhone,
+                    userBirthDate,
+                    userBirthPlace,
+                    userVille,
+                    userCodePostale,
+                    userResdiencePlace,
+                    acceptedPlans
+                )
 
                 saveUser(user)
 
             }
 
 
+        }
+
+        tv_visitez.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_registerFragment_to_legalFragment,
+                savedInstanceState
+            )
         }
 
 

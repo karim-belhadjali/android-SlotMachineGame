@@ -4,6 +4,7 @@ import android.graphics.Color
 
 object Constants {
 
+
     //DATA BASE NAME
     const val JACKPOT_DATABASE_NAME= "jackpot_db"
 
@@ -26,8 +27,11 @@ object Constants {
     const val KEY_NAME="KEY_NAME"
     const val KEY_NOT_WON="KEY_NOT_WON"
     const val KEY_WIN_AFTER="KEY_WIN_AFTER"
-    const val KEY_Email="KEY_Email"
-    const val KEY_PHONE="KEY_PHONE"
+    const val KEY_LAST_QUARTER="KEY_LAST_QUARTER"
+    const val KEY_BIG_PRIZE_WON="KEY_BIG_PRIZE_WON"
+    const val KEY_WINNERS_BIG_PRIZE="KEY_WINNERS_BIG_PRIZE"
+    const val KEY_SECOND_PRIZE_WON="KEY_SECOND_PRIZE_WON"
+    const val KEY_THIRD_PRIZE_WON="KEY_THIRD_PRIZE_WON"
     const val KEY_PRIZE="KEY_PRIZE"
 
 

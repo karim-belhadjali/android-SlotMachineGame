@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pngegg_2_1"
+    android:id="@+id/pngegg_2_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:background="@drawable/maroc"
-    tools:context=".ui.fragments.YouWonFragment"
+    tools:context=".ui.fragments.YouLostFragment"
     android:maxAspectRatio="2.4">
 
     <RelativeLayout
@@ -44,9 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/rectangle_5"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/img_won"
+        app:layout_constraintBottom_toTopOf="@+id/partnerbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +57,11 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingExtra="0sp"
-            android:paddingEnd="30dp"
             android:paddingStart="30dp"
+            android:paddingEnd="30dp"
             android:text="@string/felicitation"
             android:textAppearance="@style/felicitation"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -71,21 +71,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageView
-        android:id="@+id/img_won"
-        android:layout_width="422dp"
-        android:layout_height="422dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:elevation="25dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline18" />
-
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/partnerbg"
         android:layout_width="1000dp"
         android:layout_height="0dp"
@@ -99,7 +85,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline23" />
+        app:layout_constraintTop_toTopOf="@+id/guideline23">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/youLost"
+            android:layout_width="750dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rectangle_4"
+            android:elevation="24dp"
+            android:gravity=""
+            app:layout_constraintBottom_toTopOf="@+id/guideline39"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_thankYou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="25sp"
+                android:text="@string/you_lost"
+                android:textAppearance="@style/you_lost"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.constraintlayout.widget.Guideline

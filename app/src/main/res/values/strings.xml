@@ -76,9 +76,41 @@
     <string name="label1">Dashboard</string>
     <string name="user_count">Nombre de participants : </string>
     <string name="title_box_conf1">Enregistrer le nombre de cadeaux</string>
-    <string name="title_box_conf2_1">Heures De Travail Matin</string>
-    <string name="title_box_conf2_2">Heures De Travail Après Midi</string>
-    <string name="thank_you">Nous vous souhaitons une bonne traversée à bord du GNV</string>
+    <string name="title_box_conf2_1">Heures de travail matin</string>
+    <string name="title_box_conf2_2">Heures de travail après midi</string>
+    <string name="thank_you">Nous vous souhaitons une bonne traversée à bord de la GNV</string>
+    <string name="img"><p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:center;line-height:107%;'><strong><u><span style="font-size:16px;line-height:107%;font-family:Times;">Avis de confidentialité pour les Participants au Titre du tirage au sort</span></u></strong></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><strong><u><span style="font-size:16px;line-height:107%;font-family:Times;"><span style="text-decoration:none;"> </span></span></u></strong></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Le Responsable du traitement des données des Participants, au sens du Règlement général sur la protection des données, est MoneyGram International SRL, succursale française, dont le siège social est situé au 10, Boulevard Haussmann, 75009 Paris, France (&quot;MoneyGram&quot;).</span></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Les informations des Participants sont enregistrées et utilisées par MoneyGram pour enregistrer leur participation et permettre la remise des prix. Les données à caractère personnel sont traitées sur la base de :</span></p>
+<ul class="decimal_type" style="list-style-type: disc;">
+    <li><span style="line-height:107%;font-family:Times;">Nécessité contractuelle (article 6.1.b du RGPD) ;</span></li>
+    <li><span style="line-height:107%;font-family:Times;">Intérêt légitime à promouvoir les produits et la marque MoneyGram (article 6.1.f du GDPR) ;</span></li>
+    <li><span style="line-height:107%;font-family:Times;">Consentement pour le marketing de MoneyGram (article 6.1.a du GDPR) - si le participant a accepté la communication marketing.</span></li>
+</ul>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">MoneyGram a désigné un Responsable à la Protection des Données que vous pouvez contacter via </span><a href="mailto:dpo_belgium@moneygram.com"><span style="font-size:16px;line-height:107%;font-family:Times;">dpo_belgium@moneygram.com</span></a></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Chaque participant peut joindre MoneyGram via </span><a href="mailto:privacyprogramoffice@moneygram.com"><span style="font-size:16px;line-height:107%;font-family:Times;">privacyprogramoffice@moneygram.com</span></a></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Les données du Participant sont conservées pendant une période de 4 mois ou jusqu\'au retrait du consentement (dans le cadre d\'une communication marketing). </span></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">MoneyGram transfère les informations des Participants vers les pays suivants pour lesquels il n\'existe pas de décision d\'adéquation : (i) états-Unis d\'Amérique, (ii) Mexique, (iii) Indonésie, (iv) Arabie Saoudite, (v) Shanghai, (vi) Brésil, (vii) Porto Rico, (viii) Indonésie, (ix) Turquie, (x) Singapour, (xi) Chine, (xii) Philippines ; (xii) Malaisie, (xiv) Ukraine, (xv) DubaÏ, (xvi) Maroc, (xvii) Inde, (xviii) Afrique du Sud, (xix) Nigeria, (xx) Australie, (xxi) émirats arabes unis.</span></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Pour obtenir une copie des mesures de protection appropriées, veuillez écrire à </span><a href="mailto:privacyprogramoffice@moneygram.com"><span style="font-size:16px;line-height:107%;font-family:Times;">privacyprogramoffice@moneygram.com</span></a></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Nous pouvons également transférer vos informations vers les pays suivants pour lesquels il existe une décision d\'adéquation : (i) la Suisse ; (ii)le Canada.</span></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Les participants peuvent, pour des raisons personnelles, <strong>s\'opposer au traitement</strong> de leurs données personnelles communiquées dans le cadre de ces campagnes. Ils disposent également d\'un <strong>droit d\'opposition à ce que leurs données soient utilisées à des fins de prospection commerciale</strong>, en dehors de la participation à ce concours, qu\'ils peuvent exercer dès l\'enregistrement de leur participation en écrivant à MoneyGram.</span></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><strong><span style="font-size:16px;line-height:107%;font-family:Times;">Autres droits</span></strong></p>
+<p style='margin:0cm;font-size:15px;font-family:"Calibri",sans-serif;margin-bottom:8.0pt;text-align:justify;line-height:107%;'><span style="font-size:16px;line-height:107%;font-family:Times;">Chaque Participant dispose d\'un droit à :</span></p>
+<ul style="list-style-type: undefined;">
+    <li><span style="line-height:107%;font-family:Times;font-size:12.0pt;">Droit d\'accès aux Données Personnelles ;</span></li>
+    <li><span style="line-height:107%;font-family:Times;font-size:12.0pt;">Droit de rectification des Données Personnelles si elles sont inexactes ou incomplètes ;</span></li>
+</ul></string>
+
+    <string name="you_lost">Retentez votre chance une prochaine fois ! </string>
+    <string name="visitez">Visitez cette page</string>
+    <string name="confidentiek">Politique de confidentialité:</string>
+    <string name="confidentiel">
+
+
+ MoneyGram International SRL est le régulateur, vous pouvez nous contacter à l\'adresse suivante : privacyprogramoffice@moneygram.com ainsi que notre Responsable à la Protection des Données via dpo_belgium@moneygram.com. Vos données sont collectées et traitées aux fins de l\'organisation du tirage au sort. Si vous acceptez, nous vous enverrons des communications marketing, vous pourrez vous désinscrire à tout moment. Pour plus de détails, veuillez-vous rendre à l\'adresse suivante :
+
+ </string>
 
     <string name="felicitation">FÉLICITATIONS
 </string>

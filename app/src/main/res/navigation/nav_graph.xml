@@ -16,8 +16,8 @@
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
         <action
-            android:id="@+id/action_jackpotFragment_to_thankYouFragment"
-            app:destination="@id/thankYouFragment"
+            android:id="@+id/action_jackpotFragment_to_youLostFragment"
+            app:destination="@id/youLostFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
     </fragment>
@@ -50,6 +50,11 @@
             app:destination="@id/dashboardFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_registerFragment_to_legalFragment"
+            app:destination="@id/legalFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/thankYouFragment"
@@ -73,8 +78,24 @@
             app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.nikoarap.slotmachine.ui.fragments.TestFragment"
-        android:label="fragment_test"
-        tools:layout="@layout/fragment_test_register" />
+        android:id="@+id/youLostFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.YouLostFragment"
+        android:label="YouLostFragment" >
+        <action
+            android:id="@+id/action_youLostFragment_to_thankYouFragment"
+            app:destination="@id/thankYouFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/legalFragment"
+        android:name="com.nikoarap.slotmachine.ui.fragments.LegalFragment"
+        android:label="fragment_legal"
+        tools:layout="@layout/fragment_legal" >
+        <action
+            android:id="@+id/action_legalFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
+    </fragment>
 </navigation>

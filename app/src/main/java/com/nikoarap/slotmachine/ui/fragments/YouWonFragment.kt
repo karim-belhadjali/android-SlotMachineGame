@@ -34,6 +34,7 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
+        var done = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +65,11 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
                 prizeOneWon()
             }
             Utils.lemon -> {
-                prizeTwoWon(secondPrizeFirstWinners, secondPrizeSecondWinners, secondPrizeThirdWinners)
+                prizeTwoWon(
+                    secondPrizeFirstWinners,
+                    secondPrizeSecondWinners,
+                    secondPrizeThirdWinners
+                )
             }
             Utils.bar -> prizeThreeWon(
                 thirdPrizeFirstWinners,
@@ -85,15 +90,20 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         scaleDown.start()
 
         GlobalScope.launch(Dispatchers.IO) {
-            delay(7000)
-            findNavController().navigate(
-                R.id.action_youWonFragment_to_thankYouFragment
-            )
+            delay(5000)
+            done=true
+
+        }
+        pngegg_2_1.setOnClickListener {
+            if(done) {
+                findNavController().navigate(
+                    R.id.action_youWonFragment_to_thankYouFragment
+                )
+            }
         }
 
 
     }
-
 
 
     private fun prizeThreeWon(
@@ -129,11 +139,11 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         when (randomNumber) {
             Utils.bar -> {
 
-                    img_won!!.setImageResource(R.drawable.casquette)
-                    val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
-                    sharedPreferences.edit()
-                        .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
-                        .apply()
+                img_won!!.setImageResource(R.drawable.casquette)
+                val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
+                sharedPreferences.edit()
+                    .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
+                    .apply()
             }
             Utils.lemon -> {
                 img_won!!.setImageResource(R.drawable.mdhalla)
