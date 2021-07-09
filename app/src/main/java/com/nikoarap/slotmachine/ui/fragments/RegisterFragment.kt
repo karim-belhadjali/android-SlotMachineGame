@@ -315,15 +315,15 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val countryAdapter =
             ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, countries)
 
-        tv_birthPlace.setAdapter(countryAdapter)
-        tv_birthPlace.threshold = 1
+       // tv_birthPlace.setAdapter(countryAdapter)
+        //tv_birthPlace.threshold = 1
         tv_paysDeResidence.setAdapter(countryAdapter)
         tv_paysDeResidence.threshold = 1
         tv_codePays.setAdapter(codeAdapter)
         tv_codePays.threshold = 1
 
 
-        tv_birthDate.addTextChangedListener(object : TextWatcher {
+       /* tv_birthDate.addTextChangedListener(object : TextWatcher {
             private var current = ""
             private val ddmmyyyy = "DDMMYYYY"
             private val cal: Calendar = Calendar.getInstance()
@@ -374,7 +374,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}
-        })
+        })*/
         tv_email.addTextChangedListener(object : TextWatcher {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -411,7 +411,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             if (tv_firstName.text.toString() == "" || tv_lastName.text.toString() == "" ||
                 tv_email.text.toString() == "" || textInputLayout3.isErrorEnabled ||
                 tv_phone.text.toString() == "" || tv_codePays.text.toString() == ""
-                || tv_birthDate.text.toString() == "" || tv_birthPlace.text.toString() == ""
+               // || tv_birthDate.text.toString() == "" || tv_birthPlace.text.toString() == ""
                 || tv_ville.text.toString() == "" || tv_paysDeResidence.text.toString() == ""
                 || tv_codePostale.text.toString() == ""
             ) {
@@ -422,8 +422,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 val userLastName = tv_lastName.text.toString()
                 val userEmail = tv_email.text.toString()
                 val userPhone = tv_codePays.text.toString() + " " + tv_phone.text.toString()
-                val userBirthDate = tv_birthDate.text.toString()
-                val userBirthPlace = tv_birthPlace.text.toString()
+                //val userBirthDate = tv_birthDate.text.toString()
+                val userBirthDate =""
+                val userBirthPlace =""
+                //val userBirthPlace = tv_birthPlace.text.toString()
                 val userVille = tv_ville.text.toString()
                 val userCodePostale = tv_codePostale.text.toString()
                 val userResdiencePlace = tv_paysDeResidence.text.toString()

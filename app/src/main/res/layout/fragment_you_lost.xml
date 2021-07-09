@@ -89,7 +89,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/youLost"
-            android:layout_width="750dp"
+            android:layout_width="900dp"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"

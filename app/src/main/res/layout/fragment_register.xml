@@ -22,7 +22,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/rectangle_2"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="233dp">
+            tools:layout_editor_absoluteX="0dp">
 
 
             <LinearLayout
@@ -203,7 +203,7 @@
                             android:layout_alignParentTop="true"
                             android:orientation="horizontal"
                             android:weightSum="1"
-                            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -252,7 +252,7 @@
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
 
-                        <LinearLayout
+                        <!--<LinearLayout
                             android:id="@+id/linearLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -300,7 +300,7 @@
                                     android:fontFamily="@font/poppinsmedium" />
 
                             </com.google.android.material.textfield.TextInputLayout>
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                         <LinearLayout
                             android:id="@+id/linearLayout2"
@@ -312,7 +312,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                            app:layout_constraintTop_toBottomOf="@+id/fieldsphone">
 
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -439,8 +439,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+
+                        android:justificationMode="inter_word"
                         android:text="@string/confidentiel"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/form"
                         app:layout_constraintStart_toStartOf="@+id/cb_accepte"
                         app:layout_constraintTop_toBottomOf="@+id/tv_confidentiell" />
 

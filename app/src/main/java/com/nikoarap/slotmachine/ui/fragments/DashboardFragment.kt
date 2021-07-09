@@ -1,8 +1,11 @@
 package com.nikoarap.slotmachine.ui.fragments
 
 import android.Manifest
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
@@ -21,7 +24,6 @@ import com.nikoarap.slotmachine.other.Constants.KEY_MORNING_HOURS
 import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE
 import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_FIRST
 import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_SECOND
-import com.nikoarap.slotmachine.other.Constants.KEY_SECOND_PRIZE_THIRD
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_FIRST
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_FOURTH
@@ -29,7 +31,6 @@ import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_SECOND
 import com.nikoarap.slotmachine.other.Constants.KEY_THIRD_PRIZE_THIRD
 import com.nikoarap.slotmachine.other.Constants.KEY_TOGGLE_FIRST_TIME
 import com.nikoarap.slotmachine.other.Constants.KEY_WIN_AFTER
-import com.nikoarap.slotmachine.slotImageScroll.EventEnd
 import com.nikoarap.slotmachine.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -214,7 +215,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         } else {
             GlobalScope.launch(Dispatchers.IO) {
                 exportExcel(users)
-                findNavController().navigate(
+
+               findNavController().navigate(
                     R.id.action_dashboardFragment_to_registerFragment
                 )
             }
@@ -224,8 +226,17 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     }
 
+
     suspend fun exportExcel(users: List<User>) {
-        val filePath = File(Environment.getExternalStorageDirectory().toString() + "/Users.xls")
+        var filePath: File? = null
+
+        filePath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() +"/Users.xls"
+            )
+        } else {
+            File(Environment.getExternalStorageDirectory().toString() +"/Users.xls")
+        }
+        //val filePath = File("/storage/emulated/0/Download" + "/Users.xls")
         val hssfWorkbook = HSSFWorkbook()
         val hssfSheet = hssfWorkbook.createSheet("Participants sheet")
         val hssfRow = hssfSheet.createRow(0)
