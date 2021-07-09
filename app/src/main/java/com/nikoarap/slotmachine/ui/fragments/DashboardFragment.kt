@@ -228,15 +228,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
     suspend fun exportExcel(users: List<User>) {
-        var filePath: File? = null
 
-        filePath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() +"/Users.xls"
-            )
-        } else {
-            File(Environment.getExternalStorageDirectory().toString() +"/Users.xls")
-        }
-        //val filePath = File("/storage/emulated/0/Download" + "/Users.xls")
+
+        val filePath = File(Environment.getExternalStorageDirectory().toString() + "/Users.xls")
         val hssfWorkbook = HSSFWorkbook()
         val hssfSheet = hssfWorkbook.createSheet("Participants sheet")
         val hssfRow = hssfSheet.createRow(0)
@@ -324,7 +318,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     private fun requestWritePermissions() {

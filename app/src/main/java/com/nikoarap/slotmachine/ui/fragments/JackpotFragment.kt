@@ -47,7 +47,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     private var thirdPrizeQuantity = 0L
     private var playersWinAfter = 0L
     private var playersNotWon = 0L
-    private var winnersofBigPrize=0L
+    private var winnersofBigPrize = 0L
     private var lastQuarterHourTimeStamp = 0L
     private var lastQuarterHourWon = LocalDateTime.now()
     private var secondPrizeWon = false
@@ -68,15 +68,18 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
 
         lastQuarterHourTimeStamp = sharedPreferences.getLong(KEY_LAST_QUARTER, 0L)
-        lastQuarterHourWon = LocalDateTime.ofInstant(Instant.ofEpochMilli(lastQuarterHourTimeStamp), ZoneId.systemDefault())
+        lastQuarterHourWon = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(lastQuarterHourTimeStamp),
+            ZoneId.systemDefault()
+        )
 
-        if (output>12.toString()){
+        if (output > 12.toString()) {
             halfWorkHours = sharedPreferences.getLong(Constants.KEY_EVENING_HOURS, 0L)
-        }else{
+        } else {
             halfWorkHours = sharedPreferences.getLong(Constants.KEY_MORNING_HOURS, 0L)
         }
         winnersInHalfDay = halfWorkHours * 60L / timeForOneMassage
-        winnersofBigPrize=sharedPreferences.getLong(KEY_WINNERS_BIG_PRIZE, 0L)
+        winnersofBigPrize = sharedPreferences.getLong(KEY_WINNERS_BIG_PRIZE, 0L)
         bigPrizeQuantity = sharedPreferences.getLong(Constants.KEY_BIG_PRIZE, 0L)
         secondPrizeQuantity = sharedPreferences.getLong(Constants.KEY_SECOND_PRIZE, 0L)
         thirdPrizeQuantity = sharedPreferences.getLong(Constants.KEY_THIRD_PRIZE, 0L)
@@ -85,17 +88,21 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
         secondPrizeWon = sharedPreferences.getBoolean(KEY_SECOND_PRIZE_WON, false)
         thirdPrizeWon = sharedPreferences.getBoolean(KEY_THIRD_PRIZE_WON, false)
 
-        val won=sharedPreferences.getBoolean(KEY_BIG_PRIZE_WON, true)
+        val won = sharedPreferences.getBoolean(KEY_BIG_PRIZE_WON, true)
         isBiggestPrizeNotWon.postValue(won)
 
         val minutes: Duration =
-        Duration.between(lastQuarterHourWon, minute)
-        println(minutes.toMinutes().toInt())
+            Duration.between(lastQuarterHourWon, minute)
+        println("last time chair won:   " + minutes.toMinutes().toInt())
         image1.setEventEnd(this)
         image2.setEventEnd(this)
         image3.setEventEnd(this)
 
         subscribeToObserves()
+        println("players not won:  " + playersNotWon)
+        println("players winn after:  " + playersWinAfter)
+        println("second prize won:  " + secondPrizeWon)
+        println("third prize won:  " + thirdPrizeWon)
 
         leverUp.setOnClickListener {
 
@@ -110,9 +117,10 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
 
     private fun launchTheSlotMachine() {
-        if (playersNotWon == playersWinAfter) {
+        if (playersNotWon >= playersWinAfter) {
 
             if (checkIfBigPrizeIsAvailable()) {
+                println("Going to win Big prize")
                 image1.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
                 image2.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
                 image3.setRandomValue(2, Random.nextInt(15 - 5 + 1) + 5)
@@ -120,26 +128,39 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
                     .apply()
-            } else if (checkIfSecondPrizeIsAvailable()&& !secondPrizeWon) {
+            } else if (checkIfSecondPrizeIsAvailable() && !secondPrizeWon) {
+                println("Going to win second prize")
+
                 image1.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
                 image2.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
                 image3.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
                 playersNotWon = 0L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
-                    .putBoolean(KEY_SECOND_PRIZE_WON, true)
-                    .putBoolean(KEY_THIRD_PRIZE_WON,false)
                     .apply()
-            } else if (checkIfThirdPrizeIsAvailable()&&!thirdPrizeWon) {
+                if (!checkIfThirdPrizeIsAvailable()) {
+                    sharedPreferences.edit()
+                        .putBoolean(KEY_SECOND_PRIZE_WON, true)
+                        .putBoolean(KEY_THIRD_PRIZE_WON, false)
+                        .apply()
+                }
+            } else if (checkIfThirdPrizeIsAvailable() && !thirdPrizeWon) {
+                println("Going to win third prize")
+
                 image1.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
                 image2.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
                 image3.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
                 playersNotWon = 0L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
-                    .putBoolean(KEY_SECOND_PRIZE_WON, false)
-                    .putBoolean(KEY_THIRD_PRIZE_WON, true)
                     .apply()
+
+                if (!checkIfSecondPrizeIsAvailable()) {
+                    sharedPreferences.edit()
+                        .putBoolean(KEY_SECOND_PRIZE_WON, false)
+                        .putBoolean(KEY_THIRD_PRIZE_WON, true)
+                        .apply()
+                }
             } else {
                 launchWhenNoPrizeIsAvailable()
             }
@@ -164,7 +185,6 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                         launchWhenThirdAndSecondPrizeIsNotAvailable()
                     }
                 }
-                println("${isBiggestPrizeNotWon.value}")
             } else if (!checkIfSecondPrizeIsAvailable()) {
 
                 if (checkIfThirdPrizeIsAvailable()) {
@@ -189,34 +209,39 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     private fun subscribeToObserves() {
         isBiggestPrizeNotWon.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             biggestPrizeCombination(sharedPreferences.getBoolean(KEY_BIG_PRIZE_WON, true))
-            println("here  "+sharedPreferences.getBoolean(KEY_BIG_PRIZE_WON, true))
+            println(
+                "First check for Big Prize is notWon:  " + sharedPreferences.getBoolean(
+                    KEY_BIG_PRIZE_WON,
+                    true
+                )
+            )
         })
     }
 
     private fun biggestPrizeCombination(timeIsNow: Boolean) {
-        var minutesSince=0
+        var minutesSince = 0
         if (!timeIsNow) {
-                    if (lastQuarterHourTimeStamp != 0L) {
-                        val currentQuarterHourTimeStamp = Instant.now().toEpochMilli()
-                        val minute = LocalDateTime.ofInstant(
-                            Instant.ofEpochMilli(currentQuarterHourTimeStamp),
-                            ZoneId.systemDefault()
-                        )
+            if (lastQuarterHourTimeStamp != 0L) {
+                val currentQuarterHourTimeStamp = Instant.now().toEpochMilli()
+                val minute = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(currentQuarterHourTimeStamp),
+                    ZoneId.systemDefault()
+                )
 
-                        val minutes: Duration =
-                            Duration.between(lastQuarterHourWon, minute)
-                        minutesSince = minutes.toMinutes().toInt()
-                    } else {
-                        minutesSince = timeForOneMassage.toInt()
-                    }
+                val minutes: Duration =
+                    Duration.between(lastQuarterHourWon, minute)
+                minutesSince = minutes.toMinutes().toInt()
+            } else {
+                minutesSince = timeForOneMassage.toInt()
+            }
 
-                    if (minutesSince >= timeForOneMassage && winnersInHalfDay > winnersofBigPrize) {
-                        isBiggestPrizeNotWon.postValue(true)// print after delay
-                        sharedPreferences.edit()
-                            .putBoolean(KEY_BIG_PRIZE_WON, true)
-                            .apply()
-                        println("${isBiggestPrizeNotWon.value}")
-                    }
+            if (minutesSince >= timeForOneMassage && winnersInHalfDay > winnersofBigPrize) {
+                isBiggestPrizeNotWon.postValue(true)// print after delay
+                sharedPreferences.edit()
+                    .putBoolean(KEY_BIG_PRIZE_WON, true)
+                    .apply()
+                println(" is 15min passed to win  :${isBiggestPrizeNotWon.value}")
+            }
         }
     }
 
@@ -235,11 +260,11 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
                 when (image1.value) {
                     2 -> {
-                        winnersofBigPrize+=1L
+                        winnersofBigPrize += 1L
                         sharedPreferences.edit()
                             .putBoolean(KEY_BIG_PRIZE_WON, false)
-                            .putLong(KEY_LAST_QUARTER,Instant.now().toEpochMilli())
-                            .putLong(KEY_WINNERS_BIG_PRIZE,winnersofBigPrize)
+                            .putLong(KEY_LAST_QUARTER, Instant.now().toEpochMilli())
+                            .putLong(KEY_WINNERS_BIG_PRIZE, winnersofBigPrize)
                             .apply()
                         bigPrizeQuantity -= 1
                         sharedPreferences.edit()
@@ -293,18 +318,21 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     }
 
     private fun checkIfBigPrizeIsAvailable(): Boolean {
-        val khra=isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0L && bigPrizeQuantity != 0L
-        println("test here "+ khra)
+        val khra =
+            isBiggestPrizeNotWon.value == true && winnersInHalfDay > 0 && bigPrizeQuantity > 0
+        println("Big prize check :   " + khra)
         return khra
 
     }
 
     private fun checkIfSecondPrizeIsAvailable(): Boolean {
-        return secondPrizeQuantity != 0L
+        println("second prize check :   ${secondPrizeQuantity > 0}")
+        return secondPrizeQuantity > 0
     }
 
     private fun checkIfThirdPrizeIsAvailable(): Boolean {
-        return thirdPrizeQuantity != 0L
+        println("third prize check :    ${thirdPrizeQuantity > 0}")
+        return thirdPrizeQuantity > 0
     }
 
     private fun launchWhenAllPrizesAvailable() {
@@ -357,15 +385,15 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
     private fun launchWhenNoPrizeIsAvailable() {
         image1.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingTwoNumber(2, 1),
             Random.nextInt(15 - 5 + 1) + 5
         )
         image2.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingTwoNumber(2, 0),
             Random.nextInt(15 - 5 + 1) + 5
         )
         image3.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingTwoNumber(0, 1),
             Random.nextInt(15 - 5 + 1) + 5
         )
     }
