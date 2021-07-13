@@ -371,7 +371,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:gravity="center_horizontal|top"
-                    android:text="Maximum de perdant d'affilié"
+                    android:text="Maximum de perdant d'affilé"
                     android:textAppearance="@style/title"
                     app:layout_constraintEnd_toStartOf="@+id/guideline24"
                     app:layout_constraintStart_toStartOf="@+id/tv_title_box_conf2_2"

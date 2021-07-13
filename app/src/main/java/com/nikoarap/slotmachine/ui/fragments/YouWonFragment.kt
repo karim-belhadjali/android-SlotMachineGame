@@ -266,30 +266,30 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         thirdPrizeFourthWinners: Long
     ): Int {
         var randomnumber = 0
-        if (thirdPrizeFirstWinners != 0L) {
-            if (thirdPrizeSecondWinners != 0L) {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
+        if (thirdPrizeFirstWinners > 0) {
+            if (thirdPrizeSecondWinners > 0) {
+                if (thirdPrizeThirdWinners > 0) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomnumber = Random.nextInt(4)
                     } else {
                         randomizeWithEliminatingNumberForThirdPrize(3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingNumberForThirdPrize(2)
                     } else {
                         randomizeWithEliminatingTwoNumberForThirdPrize(2, 3)
                     }
                 }
             } else {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
+                if (thirdPrizeThirdWinners > 0) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingNumberForThirdPrize(1)
                     } else {
                         randomizeWithEliminatingTwoNumberForThirdPrize(1, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingTwoNumberForThirdPrize(1, 2)
                     } else {
                         randomizeWithEliminatingThreeNumberForThirdPrize(1, 2, 3)
@@ -297,29 +297,29 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
                 }
             }
         } else {
-            if (thirdPrizeSecondWinners != 0L) {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
+            if (thirdPrizeSecondWinners > 0) {
+                if (thirdPrizeThirdWinners > 0) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingNumberForThirdPrize(0)
                     } else {
                         randomizeWithEliminatingTwoNumberForThirdPrize(0, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingTwoNumberForThirdPrize(0, 2)
                     } else {
                         randomizeWithEliminatingThreeNumberForThirdPrize(0, 2, 3)
                     }
                 }
             } else {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
+                if (thirdPrizeThirdWinners > 0) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingTwoNumberForThirdPrize(0, 1)
                     } else {
                         randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
+                    if (thirdPrizeFourthWinners > 0) {
                         randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 2)
                     }
                 }

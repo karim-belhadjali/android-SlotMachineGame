@@ -65,6 +65,8 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
             ZoneId.systemDefault()
         )
         jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+        jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+        jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
 
 
         lastQuarterHourTimeStamp = sharedPreferences.getLong(KEY_LAST_QUARTER, 0L)
@@ -91,6 +93,38 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
         val won = sharedPreferences.getBoolean(KEY_BIG_PRIZE_WON, true)
         isBiggestPrizeNotWon.postValue(won)
 
+        if(!(secondPrizeQuantity>0)&& secondPrizeWon){
+            if (thirdPrizeQuantity>0) {
+                secondPrizeWon =false
+                thirdPrizeWon = true
+            }else{
+                secondPrizeWon = false
+                thirdPrizeWon = false
+            }
+        }
+
+        if(!(thirdPrizeQuantity>0)&& thirdPrizeWon){
+            if (secondPrizeQuantity>0) {
+                secondPrizeWon = true
+                thirdPrizeWon = false
+            }else{
+                secondPrizeWon = false
+                thirdPrizeWon = false
+            }
+        }
+
+        if (!secondPrizeWon&& !thirdPrizeWon){
+            if (thirdPrizeQuantity>0){
+                thirdPrizeWon=true
+            }
+            if (secondPrizeQuantity>0){
+                secondPrizeWon=true
+            }
+        }
+
+
+
+
         val minutes: Duration =
             Duration.between(lastQuarterHourWon, minute)
         println("last time chair won:   " + minutes.toMinutes().toInt())
@@ -103,6 +137,8 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
         println("players winn after:  " + playersWinAfter)
         println("second prize won:  " + secondPrizeWon)
         println("third prize won:  " + thirdPrizeWon)
+
+        println("Is the number of the players not won already reached:  ${playersNotWon >= playersWinAfter}")
 
         leverUp.setOnClickListener {
 
@@ -128,7 +164,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
                     .apply()
-            } else if (checkIfSecondPrizeIsAvailable() && !secondPrizeWon) {
+            } else if (checkIfSecondPrizeIsAvailable() && secondPrizeWon) {
                 println("Going to win second prize")
 
                 image1.setRandomValue(1, Random.nextInt(15 - 5 + 1) + 5)
@@ -138,13 +174,12 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
                     .apply()
-                if (!checkIfThirdPrizeIsAvailable()) {
                     sharedPreferences.edit()
-                        .putBoolean(KEY_SECOND_PRIZE_WON, true)
-                        .putBoolean(KEY_THIRD_PRIZE_WON, false)
+                        .putBoolean(KEY_SECOND_PRIZE_WON, false)
+                        .putBoolean(KEY_THIRD_PRIZE_WON, true)
                         .apply()
-                }
-            } else if (checkIfThirdPrizeIsAvailable() && !thirdPrizeWon) {
+
+            } else if (checkIfThirdPrizeIsAvailable() && thirdPrizeWon) {
                 println("Going to win third prize")
 
                 image1.setRandomValue(0, Random.nextInt(15 - 5 + 1) + 5)
@@ -155,12 +190,11 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
                     .apply()
 
-                if (!checkIfSecondPrizeIsAvailable()) {
                     sharedPreferences.edit()
-                        .putBoolean(KEY_SECOND_PRIZE_WON, false)
-                        .putBoolean(KEY_THIRD_PRIZE_WON, true)
+                        .putBoolean(KEY_SECOND_PRIZE_WON, true)
+                        .putBoolean(KEY_THIRD_PRIZE_WON, false)
                         .apply()
-                }
+
             } else {
                 launchWhenNoPrizeIsAvailable()
             }

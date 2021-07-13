@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/jackpotFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/jackpotFragment"
@@ -76,6 +76,9 @@
             app:destination="@id/thankYouFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_youWonFragment_to_jackpotFragment"
+            app:destination="@id/jackpotFragment" />
     </fragment>
     <fragment
         android:id="@+id/youLostFragment"
@@ -86,6 +89,9 @@
             app:destination="@id/thankYouFragment"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left" />
+        <action
+            android:id="@+id/action_youLostFragment_to_jackpotFragment"
+            app:destination="@id/jackpotFragment" />
     </fragment>
     <fragment
         android:id="@+id/legalFragment"
