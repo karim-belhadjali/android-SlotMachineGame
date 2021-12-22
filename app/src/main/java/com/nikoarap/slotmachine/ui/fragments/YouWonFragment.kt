@@ -34,7 +34,7 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-        var done = false
+    var done = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,11 +91,11 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
 
         GlobalScope.launch(Dispatchers.IO) {
             delay(5000)
-            done=true
+            done = true
 
         }
         pngegg_2_1.setOnClickListener {
-            if(done) {
+            if (done) {
                 findNavController().navigate(
                     R.id.action_youWonFragment_to_thankYouFragment
                 )
@@ -138,22 +138,21 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomNumber) {
             Utils.bar -> {
-
-                img_won!!.setImageResource(R.drawable.casquette)
+                img_won!!.setImageResource(R.drawable.car)
                 val thirdPrizeFirstWinnerss = thirdPrizeFirstWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_FIRST, thirdPrizeFirstWinnerss)
                     .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.mdhalla)
+                img_won!!.setImageResource(R.drawable.ri7a)
                 val thirdPrizeSecondWinnerss = thirdPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_SECOND, thirdPrizeSecondWinnerss)
                     .apply()
             }
             Utils.orange -> {
-                img_won!!.setImageResource(R.drawable.koura)
+                img_won!!.setImageResource(R.drawable.power)
                 val thirdPrizeThirdWinnerss = thirdPrizeThirdWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_THIRD_PRIZE_THIRD, thirdPrizeThirdWinnerss)
@@ -199,14 +198,14 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     ) {
         when (randomnumber) {
             Utils.bar -> {
-                img_won!!.setImageResource(R.drawable.parasol)
+                img_won!!.setImageResource(R.drawable.carta)
                 val secondPrizeFirstWinnerss = secondPrizeFirstWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_FIRST, secondPrizeFirstWinnerss)
                     .apply()
             }
             Utils.lemon -> {
-                img_won!!.setImageResource(R.drawable.car)
+                img_won!!.setImageResource(R.drawable.ecouteurs)
                 val secondPrizeSecondWinnerss = secondPrizeSecondWinners - 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_SECOND_PRIZE_SECOND, secondPrizeSecondWinnerss)
@@ -229,29 +228,29 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         secondPrizeThirdWinners: Long
     ): Int {
         var randomnumber = 0
-        if (secondPrizeFirstWinners != 0L) {
-            if (secondPrizeSecondWinners != 0L) {
-                if (secondPrizeThirdWinners != 0L) {
+        if (secondPrizeFirstWinners > 0L) {
+            if (secondPrizeSecondWinners > 0L) {
+                if (secondPrizeThirdWinners > 0L) {
                     randomnumber = Random.nextInt(3)
                 } else {
                     randomnumber = randomizeWithEliminatingNumber(2)
                 }
             } else {
-                if (secondPrizeThirdWinners != 0L) {
+                if (secondPrizeThirdWinners > 0L) {
                     randomnumber = randomizeWithEliminatingNumber(1)
                 } else {
                     randomnumber = randomizeWithEliminatingTwoNumber(1, 2)
                 }
             }
         } else {
-            if (secondPrizeSecondWinners != 0L) {
-                if (secondPrizeThirdWinners != 0L) {
+            if (secondPrizeSecondWinners > 0L) {
+                if (secondPrizeThirdWinners > 0L) {
                     randomnumber = randomizeWithEliminatingNumber(0)
                 } else {
                     randomnumber = randomizeWithEliminatingTwoNumber(0, 2)
                 }
             } else {
-                if (secondPrizeThirdWinners != 0L) {
+                if (secondPrizeThirdWinners > 0L) {
                     randomnumber = randomizeWithEliminatingTwoNumber(0, 1)
                 }
             }
@@ -266,61 +265,61 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
         thirdPrizeFourthWinners: Long
     ): Int {
         var randomnumber = 0
-        if (thirdPrizeFirstWinners != 0L) {
-            if (thirdPrizeSecondWinners != 0L) {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
+        if (thirdPrizeFirstWinners > 0L) {
+            if (thirdPrizeSecondWinners > 0L) {
+                if (thirdPrizeThirdWinners > 0L) {
+                    if (thirdPrizeFourthWinners > 0L) {
                         randomnumber = Random.nextInt(4)
                     } else {
-                        randomizeWithEliminatingNumberForThirdPrize(3)
+                        randomnumber = randomizeWithEliminatingNumberForThirdPrize(3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingNumberForThirdPrize(2)
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingNumberForThirdPrize(2)
                     } else {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(2, 3)
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(2, 3)
                     }
                 }
             } else {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingNumberForThirdPrize(1)
+                if (thirdPrizeThirdWinners > 0L) {
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingNumberForThirdPrize(1)
                     } else {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(1, 3)
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(1, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(1, 2)
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(1, 2)
                     } else {
-                        randomizeWithEliminatingThreeNumberForThirdPrize(1, 2, 3)
+                        randomnumber = randomizeWithEliminatingThreeNumberForThirdPrize(1, 2, 3)
                     }
                 }
             }
         } else {
-            if (thirdPrizeSecondWinners != 0L) {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingNumberForThirdPrize(0)
+            if (thirdPrizeSecondWinners > 0L) {
+                if (thirdPrizeThirdWinners > 0L) {
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingNumberForThirdPrize(0)
                     } else {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(0, 3)
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(0, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(0, 2)
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(0, 2)
                     } else {
-                        randomizeWithEliminatingThreeNumberForThirdPrize(0, 2, 3)
+                        randomnumber = randomizeWithEliminatingThreeNumberForThirdPrize(0, 2, 3)
                     }
                 }
             } else {
-                if (thirdPrizeThirdWinners != 0L) {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingTwoNumberForThirdPrize(0, 1)
+                if (thirdPrizeThirdWinners > 0L) {
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingTwoNumberForThirdPrize(0, 1)
                     } else {
-                        randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 3)
+                        randomnumber = randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 3)
                     }
                 } else {
-                    if (thirdPrizeFourthWinners != 0L) {
-                        randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 2)
+                    if (thirdPrizeFourthWinners > 0L) {
+                        randomnumber = randomizeWithEliminatingThreeNumberForThirdPrize(0, 1, 2)
                     }
                 }
             }
@@ -329,6 +328,6 @@ class YouWonFragment : Fragment(R.layout.fragment_you_won) {
     }
 
     private fun prizeOneWon() {
-        img_won!!.setImageResource(R.drawable.massage)
+        img_won!!.setImageResource(R.drawable.koura)
     }
 }

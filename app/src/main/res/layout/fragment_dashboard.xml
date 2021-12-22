@@ -100,9 +100,8 @@
                     android:id="@+id/textInputLayout"
                     android:layout_width="408dp"
                     android:layout_height="wrap_content"
-                    android:hint="#1 Massage"
+                    android:hint="#1 Ballon"
                     app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_box_conf1">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -120,7 +119,7 @@
                     android:id="@+id/textInputLayout8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="#5 Casquette"
+                    android:hint="#4 Pare-Soleil"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -143,7 +142,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
-                    android:hint="#6 Chapeau de paille"
+                    android:hint="#5 Sensorette"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -165,7 +164,7 @@
                     android:id="@+id/textInputLayout10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="#7 Ballon gonflable pour enfants"
+                    android:hint="#6 Batterie portable ​"
                     app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -183,18 +182,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.google.android.material.textfield.TextInputLayout
+                <!--<com.google.android.material.textfield.TextInputLayout
 
                     android:id="@+id/textInputLayout11"
                     android:layout_width="408dp"
                     android:layout_height="wrap_content"
 
                     android:hint="#4 Sensorette de voiture"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout10"
-                    app:layout_constraintHorizontal_bias="0.551"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                    tools:layout_editor_absoluteY="348dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tv_thirdPrize_four"
@@ -204,18 +199,15 @@
                         android:layout_marginEnd="30dp"
                         android:fontFamily="@font/poppinsmedium"
                         android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
 
                     android:id="@+id/textInputLayout2"
-                    android:layout_width="0dp"
+                    android:layout_width="408dp"
                     android:layout_height="wrap_content"
-                    android:hint="#3 Parasol"
-                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout11"
-                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout9"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:hint="#3 Ecouteurs"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -231,15 +223,11 @@
                 <com.google.android.material.textfield.TextInputLayout
 
                     android:id="@+id/textInputLayout3"
-                    android:layout_width="0dp"
+                    android:layout_width="408dp"
                     android:layout_height="wrap_content"
-                    android:hint="#2 Pare-Soleil pour voiture"
+                    android:hint="#2 Jeu de carte"
                     app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout10"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/tv_secondPrize_two"

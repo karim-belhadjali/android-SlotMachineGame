@@ -71,7 +71,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             val thirdPrizeFirstWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FIRST, 0L)
             val thirdPrizeSecondWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_SECOND, 0L)
             val thirdPrizeThirdWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_THIRD, 0L)
-            val thirdPrizeFourthWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FOURTH, 0L)
+            //val thirdPrizeFourthWinners = sharedPreferences.getLong(KEY_THIRD_PRIZE_FOURTH, 0L)
             val morningHours = sharedPreferences.getLong(KEY_MORNING_HOURS, 0L)
             val eveningHours = sharedPreferences.getLong(KEY_EVENING_HOURS, 0L)
 
@@ -83,7 +83,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             tv_thirdPrize_one.setText(thirdPrizeFirstWinners.toString())
             tv_thirdPrize_two.setText(thirdPrizeSecondWinners.toString())
             tv_thirdPrize_three.setText(thirdPrizeThirdWinners.toString())
-            tv_thirdPrize_four.setText(thirdPrizeFourthWinners.toString())
+            //tv_thirdPrize_four.setText(thirdPrizeFourthWinners.toString())
             tv_halfHours.setText(morningHours.toString())
             tv_secondHalfHours.setText(eveningHours.toString())
 
@@ -101,7 +101,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
             if (!firstConfig) {
                 if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_playersWinAfter.text.toString() == "" ||
-                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || tv_thirdPrize_four.text.toString() == "" ||
+                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" ||// tv_thirdPrize_four.text.toString() == "" ||
                     tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == ""
                 ) {
                     Snackbar.make(requireView(), ENTER_ALL_VALUES, Snackbar.LENGTH_SHORT).show()
@@ -112,7 +112,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                     val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
                     val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
                     val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
-                    val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    //val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    val thirdPrizeFourthWinners = 0L
                     val playerswinAfter = tv_playersWinAfter.text.toString().toLong()
                     val morningHours = tv_halfHours.text.toString().toLong()
                     val eveningHours = tv_secondHalfHours.text.toString().toLong()
@@ -147,7 +148,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
             } else {
                 if (tv_bigPrize.text.toString() == "" || tv_secondPrize_one.text.toString() == "" || tv_secondPrize_two.text.toString() == "" || tv_playersWinAfter.text.toString() == "" ||
-                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || tv_thirdPrize_four.text.toString() == "" ||
+                    tv_thirdPrize_one.text.toString() == "" || tv_thirdPrize_two.text.toString() == "" || tv_thirdPrize_three.text.toString() == "" || //tv_thirdPrize_four.text.toString() == "" ||
                     tv_halfHours.text.toString() == "" || tv_secondHalfHours.text.toString() == ""
                 ) {
                     Snackbar.make(requireView(), ENTER_ALL_VALUES, Snackbar.LENGTH_SHORT).show()
@@ -159,7 +160,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                     val thirdPrizeFirstWinners = tv_thirdPrize_one.text.toString().toLong()
                     val thirdPrizeSecondWinners = tv_thirdPrize_two.text.toString().toLong()
                     val thirdPrizeThirdWinners = tv_thirdPrize_three.text.toString().toLong()
-                    val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    //val thirdPrizeFourthWinners = tv_thirdPrize_four.text.toString().toLong()
+                    val thirdPrizeFourthWinners = 0L
                     val morningHours = tv_halfHours.text.toString().toLong()
                     val eveningHours = tv_secondHalfHours.text.toString().toLong()
 

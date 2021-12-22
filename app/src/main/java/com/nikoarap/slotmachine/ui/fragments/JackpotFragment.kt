@@ -40,7 +40,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
     private var isBiggestPrizeNotWon = MutableLiveData<Boolean>()
     private var halfWorkHours = 0L
-    private val timeForOneMassage = 15L
+    private val timeForOneMassage = 5L
     private var winnersInHalfDay = 0L
     private var bigPrizeQuantity = 0L
     private var secondPrizeQuantity = 0L
@@ -64,7 +64,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
             Instant.ofEpochMilli(currentQuarterHourTimeStamp),
             ZoneId.systemDefault()
         )
-        jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+        jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
 
 
         lastQuarterHourTimeStamp = sharedPreferences.getLong(KEY_LAST_QUARTER, 0L)
@@ -100,9 +100,9 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
         leverUp.setOnClickListener {
 
             leverUp.visibility = View.GONE
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_down)
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_down)
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_down)
+            jackpot_1.setBackgroundResource(R.drawable.downtitle_1)
+            jackpot_1.setBackgroundResource(R.drawable.downtitle_1)
+            jackpot_1.setBackgroundResource(R.drawable.downtitle_1)
             launchTheSlotMachine()
 
         }
@@ -226,13 +226,13 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
             countDown++
         } else {
             leverUp.visibility = View.VISIBLE
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
-            jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+            jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
+            jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
+            jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
             countDown = 0
 
             if (image1.value == image2.value && image2.value == image3.value) {
-                jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+                jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
                 when (image1.value) {
                     2 -> {
                         winnersofBigPrize+=1L
@@ -276,7 +276,7 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
                 }
 
             } else {
-                jackpot_1.setBackgroundResource(R.drawable.jackpot_1)
+                jackpot_1.setBackgroundResource(R.drawable.uptitle_1)
                 playersNotWon += 1L
                 sharedPreferences.edit()
                     .putLong(Constants.KEY_NOT_WON, playersNotWon)
@@ -293,18 +293,18 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
     }
 
     private fun checkIfBigPrizeIsAvailable(): Boolean {
-        val khra=isBiggestPrizeNotWon.value == true && winnersInHalfDay != 0L && bigPrizeQuantity != 0L
+        val khra=isBiggestPrizeNotWon.value == true && winnersInHalfDay > 0L && bigPrizeQuantity > 0L
         println("test here "+ khra)
         return khra
 
     }
 
     private fun checkIfSecondPrizeIsAvailable(): Boolean {
-        return secondPrizeQuantity != 0L
+        return secondPrizeQuantity > 0L
     }
 
     private fun checkIfThirdPrizeIsAvailable(): Boolean {
-        return thirdPrizeQuantity != 0L
+        return thirdPrizeQuantity > 0L
     }
 
     private fun launchWhenAllPrizesAvailable() {
@@ -357,15 +357,15 @@ class JackpotFragment : Fragment(R.layout.fragment_jackpot), EventEnd {
 
     private fun launchWhenNoPrizeIsAvailable() {
         image1.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingThreeNumber(0, 3, 2),
             Random.nextInt(15 - 5 + 1) + 5
         )
         image2.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingThreeNumber(3, 1, 2),
             Random.nextInt(15 - 5 + 1) + 5
         )
         image3.setRandomValue(
-            randomizeWithEliminatingThreeNumber(0, 1, 2),
+            randomizeWithEliminatingNumber(3),
             Random.nextInt(15 - 5 + 1) + 5
         )
     }
