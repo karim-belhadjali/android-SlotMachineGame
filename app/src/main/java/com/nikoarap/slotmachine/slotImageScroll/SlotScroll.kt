@@ -84,7 +84,7 @@ class SlotScroll: FrameLayout {
         when (value) {
             Utils.bar -> currentImage!!.setImageResource(R.drawable.smiley)
             Utils.lemon -> currentImage!!.setImageResource(R.drawable.gift)
-            Utils.orange -> currentImage!!.setImageResource(R.drawable.chaise)
+            Utils.orange -> currentImage!!.setImageResource(R.drawable.ballon_1)
 
         }
 
